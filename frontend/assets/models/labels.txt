@@ -1,0 +1,9 @@
+Potato_Healthy
+Potato_Early_Blight
+Potato_Late_Blight
+Tomato_Healthy
+Tomato_Early_Blight
+Tomato_Late_Blight
+Wheat_Healthy
+Wheat_Yellow_Rust
+Wheat_Brown_Rust

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriMate AI • Mobile Phone Emulator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 20%, #1E293B 0%, #0F172A 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 20px 10px;
+      overflow-x: hidden;
+      user-select: none;
+    }
+
+    /* Hardware Phone Chassis */
+    .phone-chassis {
+      position: relative;
+      width: 412px;
+      height: 870px;
+      background: #090D16;
+      border-radius: 54px;
+      box-shadow: 
+        0 0 0 2px #334155,
+        0 0 0 6px #1E293B,
+        0 0 0 10px #090D16,
+        0 25px 50px -12px rgba(0, 0, 0, 0.7),
+        0 0 80px rgba(21, 128, 61, 0.25);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    /* Screen Bezel & Display */
+    .phone-screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #FFFFFF;
+      border-radius: 44px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: inset 0 0 4px rgba(0,0,0,0.2);
+    }
+
+    /* Punch-hole Front Camera */
+    .punch-hole {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 14px;
+      background: #050505;
+      border-radius: 50%;
+      z-index: 50;
+      box-shadow: inset 0 0 2px #1E293B, 0 0 1px rgba(255,255,255,0.2);
+    }
+    .punch-hole::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 4px;
+      height: 4px;
+      background: #1E3A8A;
+      border-radius: 50%;
+      opacity: 0.8;
+    }
+
+    /* Speaker Ear-piece */
+    .earpiece {
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background: #1F2937;
+      border-radius: 2px;
+      z-index: 50;
+    }
+
+    /* Hardware Buttons on the Side */
+    .side-btn {
+      position: absolute;
+      background: #334155;
+      border-radius: 3px 0 0 3px;
+    }
+    .btn-volume-up {
+      left: -5px;
+      top: 140px;
+      width: 5px;
+      height: 48px;
+    }
+    .btn-volume-down {
+      left: -5px;
+      top: 200px;
+      width: 5px;
+      height: 48px;
+    }
+    .btn-power {
+      right: -5px;
+      top: 170px;
+      width: 5px;
+      height: 60px;
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* Phone Status Bar */
+    .simulated-status-bar {
+      height: 32px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #0F172A;
+      background: #FFFFFF;
+      z-index: 40;
+      letter-spacing: -0.2px;
+    }
+
+    /* Iframe App Container */
+    .app-iframe {
+      width: 100%;
+      flex: 1;
+      border: none;
+      background: #FFFFFF;
+    }
+
+    /* Bottom Home Indicator Pill */
+    .home-indicator-bar {
+      height: 18px;
+      width: 100%;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+    }
+    .home-pill {
+      width: 120px;
+      height: 4px;
+      background: #0F172A;
+      border-radius: 999px;
+      opacity: 0.7;
+    }
+
+    /* Floating Emulator Controls */
+    .emulator-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      background: rgba(30, 41, 59, 0.8);
+      backdrop-filter: blur(12px);
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .tool-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #E2E8F0;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tool-btn:hover {
+      background: rgba(21, 128, 61, 0.8);
+      color: #FFFFFF;
+      border-color: rgba(34, 197, 94, 0.5);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Emulator Quick Controls -->
+  <div class="emulator-toolbar">
+    <div class="flex items-center gap-2 pr-2 border-r border-slate-700">
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="text-xs font-black text-white tracking-wide">AgriMate AI Emulator</span>
+      <span class="text-[10px] text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-800">Redmi Note 12</span>
+    </div>
+
+    <!-- Restart App (Triggers Instagram-Style Splash Screen) -->
+    <button class="tool-btn" onclick="restartApp()" title="Restart App to see Splash Screen">
+      <span>🔄</span>
+      <span>Restart Splash</span>
+    </button>
+
+    <!-- Quick Role Switch -->
+    <button class="tool-btn" onclick="quickFill('farmer')" title="Log in as Farmer">
+      <span>🌾</span>
+      <span>Farmer</span>
+    </button>
+
+    <button class="tool-btn" onclick="quickFill('buyer')" title="Log in as Buyer">
+      <span>🏪</span>
+      <span>Buyer</span>
+    </button>
+
+    <button class="tool-btn" onclick="quickFill('expert')" title="Log in as Agronomist Expert">
+      <span>🎓</span>
+      <span>Expert</span>
+    </button>
+  </div>
+
+  <!-- Hardware Phone Chassis Frame -->
+  <div class="phone-chassis">
+    <!-- Physical Side Buttons -->
+    <div class="side-btn btn-volume-up" title="Volume Up"></div>
+    <div class="side-btn btn-volume-down" title="Volume Down"></div>
+    <div class="side-btn btn-power" onclick="toggleScreenPower()" title="Power Button"></div>
+
+    <!-- Screen Bezel -->
+    <div class="phone-screen" id="phone-screen">
+      <!-- Top Speaker Earpiece & Punch-hole Camera -->
+      <div class="earpiece"></div>
+      <div class="punch-hole"></div>
+
+      <!-- Real-Time Simulated Android Status Bar -->
+      <div class="simulated-status-bar">
+        <span id="clock-display">07:15</span>
+        <div class="flex items-center gap-1.5 text-xs">
+          <!-- VoWiFi / 5G / Battery -->
+          <span class="text-[10px] font-extrabold text-emerald-700">5G</span>
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9zm0 15.5c-3.59 0-6.5-2.91-6.5-6.5s2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5-2.91 6.5-6.5 6.5z"/></svg>
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"/></svg>
+          <div class="flex items-center gap-0.5 border border-slate-900 rounded-sm px-0.5 py-[1px] h-3 w-5">
+            <div class="bg-slate-900 h-full w-[85%] rounded-[1px]"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Embedded Native AgriMate Application -->
+      <iframe id="app-frame" class="app-iframe" src="index.html" allow="camera; microphone; geolocation"></iframe>
+
+      <!-- Bottom Gesture Navigation Line -->
+      <div class="home-indicator-bar" onclick="goHome()">
+        <div class="home-pill"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-[11px] text-slate-400 mt-4 flex items-center gap-2">
+    <span>💡 Complete mobile phone environment</span>
+    <span>•</span>
+    <span>White Background Theme</span>
+    <span>•</span>
+    <span>Instagram Splash Active</span>
+  </div>
+
+  <script>
+    // Live Clock Update
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      document.getElementById('clock-display').innerText = `${hours}:${minutes} ${ampm}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    const iframe = document.getElementById('app-frame');
+
+    // Restart App to trigger splash screen
+    function restartApp() {
+      iframe.contentWindow.location.reload();
+    }
+
+    // Go to Home screen
+    function goHome() {
+      try {
+        if (iframe.contentWindow && iframe.contentWindow.navigateTo) {
+          const token = iframe.contentWindow.localStorage.getItem('agrimate_jwt');
+          if (token) {
+            iframe.contentWindow.navigateTo('screen-dashboard-farmer');
+          } else {
+            iframe.contentWindow.navigateTo('screen-auth');
+          }
+        }
+      } catch (e) {
+        iframe.src = 'index.html';
+      }
+    }
+
+    // Quick Fill demo accounts
+    function quickFill(role) {
+      try {
+        const win = iframe.contentWindow;
+        if (win && win.navigateTo) {
+          win.navigateTo('screen-auth');
+          if (role === 'farmer') {
+            win.fillDemo('03001234567', 'Kisan123456!');
+          } else if (role === 'buyer') {
+            win.fillDemo('03111234567', 'Buyer123456!');
+          } else if (role === 'expert') {
+            win.fillDemo('03221234567', 'Expert123456!');
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // Power toggle (sleep/wake screen)
+    let isScreenOn = true;
+    function toggleScreenPower() {
+      isScreenOn = !isScreenOn;
+      const screen = document.getElementById('phone-screen');
+      if (!isScreenOn) {
+        screen.style.opacity = '0.05';
+        screen.style.pointerEvents = 'none';
+      } else {
+        screen.style.opacity = '1';
+        screen.style.pointerEvents = 'auto';
+      }
+    }
+  </script>
+</body>
+</html>
+

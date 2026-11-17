@@ -1,0 +1,46 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+backend/.env
+
+# Databases
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+backend/agrimate.db
+agrimate.db
+
+# APK and temporary builds
+*.apk
+*.idsig
+phone_screen.png
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# Flutter & Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+android/app/build/
+ios/.symlinks/
+
+# IDE & OS
+.idea/
+.vscode/
+*.swp
+*.swo
+Thumbs.db
+.DS_Store

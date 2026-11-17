@@ -1,0 +1,65 @@
+{
+  "model_name": "AgriMate_MobileNetV2_Potato_Tomato_Quantized",
+  "version": "2.0.0",
+  "input_shape": [
+    1,
+    224,
+    224,
+    3
+  ],
+  "quantization": "INT8 / FP16 dynamic range",
+  "num_classes": 8,
+  "classes": [
+    "Potato_Healthy",
+    "Potato_Early_Blight",
+    "Potato_Late_Blight",
+    "Tomato_Healthy",
+    "Tomato_Early_Blight",
+    "Tomato_Late_Blight",
+    "Wheat_Healthy",
+    "Wheat_Yellow_Rust"
+  ],
+  "confidence_threshold": 0.75,
+  "disease_treatment_protocols": {
+    "Potato_Late_Blight": {
+      "common_name": "Potato Late Blight (Pachita Jhalsao)",
+      "urdu_name": "آلو کا پچھیتا جھلساؤ",
+      "pathogen": "Phytophthora infestans",
+      "recommended_action": "Spray Metalaxyl + Mancozeb (Ridomil Gold @ 250g/100L water) or Mandipropamid (Revus @ 200ml/acre). Ensure lower leaf coverage.",
+      "severity": "CRITICAL",
+      "authority_citation": "NARC Potato Program & Potato Research Institute Sahiwal Advisory 2024"
+    },
+    "Potato_Early_Blight": {
+      "common_name": "Potato Early Blight (Agaita Jhalsao)",
+      "urdu_name": "آلو کا اگیتا جھلساؤ",
+      "pathogen": "Alternaria solani",
+      "recommended_action": "Spray Difenoconazole (Score @ 125ml/acre) or Azoxystrobin @ 100ml/acre. Maintain vigorous vine nutrition.",
+      "severity": "MODERATE",
+      "authority_citation": "Potato Research Institute Sahiwal Compendium 2024"
+    },
+    "Tomato_Early_Blight": {
+      "common_name": "Tomato Early Blight",
+      "urdu_name": "ٹماٹر کا اگیتا جھلساؤ",
+      "pathogen": "Alternaria solani",
+      "recommended_action": "Spray Chlorothalonil 75 WP @ 500g/acre or Mancozeb 80 WP @ 600g/acre. Prune lower diseased foliage touching soil.",
+      "severity": "MODERATE",
+      "authority_citation": "Punjab Agriculture Extension Department Tomato Manual 2024"
+    },
+    "Tomato_Late_Blight": {
+      "common_name": "Tomato Late Blight",
+      "urdu_name": "ٹماٹر کا پچھیتا جھلساؤ",
+      "pathogen": "Phytophthora infestans",
+      "recommended_action": "Apply Metalaxyl + Mancozeb @ 250g/acre or Cymoxanil @ 300g/acre immediately during cool, foggy spells.",
+      "severity": "CRITICAL",
+      "authority_citation": "Punjab Agriculture Extension Disease Alert 2024"
+    },
+    "Wheat_Yellow_Rust": {
+      "common_name": "Wheat Yellow Rust (Stripe Rust)",
+      "urdu_name": "گندم کی زرد کنگی",
+      "pathogen": "Puccinia striiformis f. sp. tritici",
+      "recommended_action": "Spray Propiconazole (Tilt 250 EC @ 200ml/acre) or Tebuconazole @ 250ml/acre at first appearance.",
+      "severity": "HIGH",
+      "authority_citation": "UAF Cereal Pathology Research 2024"
+    }
+  }
+}
