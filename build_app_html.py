@@ -500,39 +500,6 @@ def generate():
       </div>
     </div>
 
-    <!-- Quick Action Launchers (3 Column Grid) -->
-    <div class="grid grid-cols-3 gap-2.5 mb-5">
-      <div onclick="navigateTo('screen-camera')" class="card-clean p-3 cursor-pointer hover:border-emerald-500 transition-all flex flex-col justify-between">
-        <div class="w-9 h-9 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold mb-2 shadow-sm">
-          📷
-        </div>
-        <div>
-          <div id="btn-quick-scan" class="text-xs font-bold text-slate-900">Leaf Scan</div>
-          <div id="sub-quick-scan" class="text-[10px] text-emerald-700 font-semibold">Photo + Voice</div>
-        </div>
-      </div>
-
-      <div onclick="navigateTo('screen-diary')" class="card-clean p-3 cursor-pointer hover:border-emerald-500 transition-all flex flex-col justify-between border-emerald-500/50 bg-emerald-50/20">
-        <div class="w-9 h-9 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold mb-2 shadow-sm">
-          📖
-        </div>
-        <div>
-          <div id="btn-quick-diary" class="text-xs font-bold text-slate-900">Crop Diary</div>
-          <div id="sub-quick-diary" class="text-[10px] text-amber-700 font-semibold">Offline Sync</div>
-        </div>
-      </div>
-
-      <div onclick="navigateTo('screen-chat')" class="card-clean p-3 cursor-pointer hover:border-emerald-500 transition-all flex flex-col justify-between">
-        <div class="w-9 h-9 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold mb-2 shadow-sm">
-          💬
-        </div>
-        <div>
-          <div id="btn-quick-advisor" class="text-xs font-bold text-slate-900">AI Advisor</div>
-          <div id="sub-quick-advisor" class="text-[10px] text-slate-500">NARC RAG</div>
-        </div>
-      </div>
-    </div>
-
     <!-- Monitored Fields Section -->
     <div class="space-y-3.5 mb-4">
       <div class="flex items-center justify-between">
