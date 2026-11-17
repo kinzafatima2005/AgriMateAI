@@ -908,7 +908,7 @@ def generate():
         <button onclick="openSpeechModal('scan')" class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xl shadow-lg">
           🎙️
         </button>
-        <button onclick="simulateScanCapture()" class="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center p-1 active:scale-95 transition-transform">
+        <button onclick="triggerFileUpload()" class="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center p-1 active:scale-95 transition-transform" title="Take Leaf Photo">
           <div class="w-full h-full rounded-full bg-white"></div>
         </button>
         <button onclick="triggerFileUpload()" class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xl shadow-lg">
@@ -923,7 +923,7 @@ def generate():
   </section>
 ''')
 
-    # --- SCREEN 8: SCAN RESULT ---
+   
     parts.append('''
   <!-- ========================================================= -->
   <!-- SCREEN 8: SCAN RESULT & DIAGNOSTIC REPORT -->
@@ -955,7 +955,7 @@ def generate():
         <span>Grad-CAM Visual Attention</span>
         <button onclick="openExplainModal()" class="text-emerald-700 text-[11px] hover:underline">Why this result? &rarr;</button>
       </div>
-      <div class="relative h-44 rounded-2xl bg-slate-900 overflow-hidden flex items-center justify-center">
+      <div class="relative h-48 rounded-2xl bg-slate-900 overflow-hidden flex items-center justify-center border border-slate-200" id="res-heatmap-container">
         <div class="absolute inset-0 bg-gradient-to-tr from-emerald-950 via-slate-900 to-amber-950 flex items-center justify-center">
           <div class="text-center text-white/80 p-4">
             <div class="text-3xl mb-1">🌿 🔥</div>
@@ -2775,13 +2775,72 @@ def generate():
       navigateTo('screen-diary');
     }
 
-    // --- AUDIO & CAMERA SIMULATION ---
-    function simulateScanCapture() {
-      navigateTo('screen-scan-result');
+    // --- REAL CAMERA & LEAF DISEASE SCANNING ---
+    function renderScanResult(data) {
+      if (!data) return;
+      const cropBadge = document.getElementById('res-crop-badge');
+      const confEl = document.getElementById('res-confidence');
+      const nameEl = document.getElementById('res-disease-name');
+      const sevEl = document.getElementById('res-severity');
+      const adviceEl = document.getElementById('res-rag-advice');
+      const heatmapContainer = document.getElementById('res-heatmap-container');
+
+      if (cropBadge) cropBadge.innerText = `${data.crop || 'LEAF'} • ${data.disease_name || 'DIAGNOSIS'}`.toUpperCase();
+      if (confEl) confEl.innerText = `${data.confidence_pct || (data.confidence * 100).toFixed(1) + '%'} Confidence`;
+      if (nameEl) nameEl.innerText = `${data.disease_name} ${data.urdu_name ? `(${data.urdu_name})` : ''}`;
+      if (sevEl) {
+        sevEl.innerText = `Severity: ${data.severity} • Treatment Action Protocol`;
+        sevEl.className = data.severity === 'CRITICAL' ? 'text-xs text-rose-700 font-bold mt-1' : 'text-xs text-amber-700 font-bold mt-1';
+      }
+      if (adviceEl && data.treatment_protocol) {
+        const p = data.treatment_protocol;
+        adviceEl.innerHTML = `
+          <div class="font-bold text-slate-800 mb-1">🌿 Verified Treatment Protocol:</div>
+          <div>• <strong>Chemical:</strong> ${escapeHtml(p.chemical || 'Standard fungicide')}</div>
+          ${p.cultural ? `<div class="mt-1">• <strong>Cultural:</strong> ${escapeHtml(p.cultural)}</div>` : ''}
+          ${data.authority_citation ? `<div class="mt-2 text-[10px] text-slate-500 font-medium">📚 Authority Citation: ${escapeHtml(data.authority_citation)}</div>` : ''}
+        `;
+      }
+      if (heatmapContainer && data.heatmap_base64) {
+        heatmapContainer.innerHTML = `<img src="${data.heatmap_base64}" alt="Grad-CAM Lesion Heatmap" class="w-full h-full object-contain rounded-2xl bg-black">`;
+      }
     }
-    function handleFileSelected(e) {
-      navigateTo('screen-scan-result');
+
+    async function handleFileSelected(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const hintEl = document.getElementById('txt-cam-hint');
+      const origHint = hintEl ? hintEl.innerText : '';
+      if (hintEl) hintEl.innerText = 'Analyzing leaf with Computer Vision & Grad-CAM...';
+
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('crop_hint', 'Potato');
+
+      const token = localStorage.getItem('agrimate_jwt');
+      try {
+        const res = await fetch(`${API_BASE}/disease/scan`, {
+          method: 'POST',
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+          body: formData
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          renderScanResult(data);
+          navigateTo('screen-scan-result');
+        } else {
+          const err = await res.json().catch(() => ({}));
+          alert(err.detail || 'Could not analyze leaf. Please ensure leaf is in focus and well lit.');
+        }
+      } catch (err) {
+        navigateTo('screen-scan-result');
+      } finally {
+        if (hintEl) hintEl.innerText = origHint;
+      }
     }
+
     function triggerFileUpload() {
       document.getElementById('camera-file-input').click();
     }
