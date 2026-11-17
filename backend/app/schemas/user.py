@@ -50,6 +50,7 @@ class UserRegister(BaseModel):
 class UserLogin(BaseModel):
     phone_or_email: str = Field(..., description="Registered phone or email")
     password: str = Field(..., description="Account password")
+    role: Optional[str] = Field(None, description="Optional expected role: Farmer, Buyer, Expert/Admin")
 
     @field_validator("phone_or_email")
     def normalize_identifier(cls, v: str) -> str:

@@ -100,6 +100,17 @@ def login_user(
             detail="Account is inactive. Please contact your local agricultural extension coordinator.",
         )
     
+    # If a specific login role was selected, verify role alignment
+    if payload.role:
+        norm_expected = payload.role.strip().lower()
+        norm_actual = user.role.strip().lower()
+        if norm_expected != norm_actual and not (norm_expected in norm_actual or norm_actual in norm_expected):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"This account is registered as a {user.role}, not as a {payload.role}.",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+    
     access_token = create_access_token(subject=str(user.id), role=user.role)
     
     return Token(

@@ -234,14 +234,45 @@ def generate():
       </div>
 
       <form id="form-login" onsubmit="handleLoginSubmit(event)" class="space-y-3.5">
+        <!-- Role Selection for Login -->
         <div>
-          <label id="lbl-login-id" class="block text-xs font-bold text-slate-700 mb-1">Phone or Email</label>
+          <label id="lbl-login-role" class="block text-xs font-bold text-slate-700 mb-1.5">1. Select Your Role to Sign In:</label>
+          <div class="grid grid-cols-3 gap-2">
+            <label class="cursor-pointer">
+              <input type="radio" name="login-role" value="Farmer" checked class="peer sr-only" onchange="selectLoginRole('Farmer')">
+              <div class="p-2.5 rounded-2xl border-2 border-slate-200 peer-checked:border-emerald-600 peer-checked:bg-emerald-50 text-center transition-all">
+                <div class="text-lg">👨‍🌾</div>
+                <div class="text-xs font-black text-slate-800 peer-checked:text-emerald-900 mt-0.5">Farmer</div>
+                <div class="text-[9px] text-slate-400">کاشتکار</div>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="login-role" value="Buyer" class="peer sr-only" onchange="selectLoginRole('Buyer')">
+              <div class="p-2.5 rounded-2xl border-2 border-slate-200 peer-checked:border-amber-600 peer-checked:bg-amber-50 text-center transition-all">
+                <div class="text-lg">🛒</div>
+                <div class="text-xs font-black text-slate-800 peer-checked:text-amber-900 mt-0.5">Buyer</div>
+                <div class="text-[9px] text-slate-400">خریدار</div>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="login-role" value="Expert/Admin" class="peer sr-only" onchange="selectLoginRole('Expert/Admin')">
+              <div class="p-2.5 rounded-2xl border-2 border-slate-200 peer-checked:border-sky-600 peer-checked:bg-sky-50 text-center transition-all">
+                <div class="text-lg">🔬</div>
+                <div class="text-xs font-black text-slate-800 peer-checked:text-sky-900 mt-0.5">Expert</div>
+                <div class="text-[9px] text-slate-400">زرعی ماہر</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label id="lbl-login-id" class="block text-xs font-bold text-slate-700 mb-1">2. Phone or Email</label>
           <input type="text" id="login-identifier" required placeholder="03001234567 or user@agrimate.pk"
             class="w-full px-4 py-3.5 bg-slate-50 text-slate-900 text-sm rounded-2xl border border-slate-200 focus:outline-none focus:border-emerald-600 focus:bg-white transition-all font-medium">
         </div>
 
         <div>
-          <label id="lbl-login-pwd" class="block text-xs font-bold text-slate-700 mb-1">Password</label>
+          <label id="lbl-login-pwd" class="block text-xs font-bold text-slate-700 mb-1">3. Password</label>
           <div class="relative">
             <input type="password" id="login-password" required placeholder="Enter password"
               class="w-full px-4 py-3.5 bg-slate-50 text-slate-900 text-sm rounded-2xl border border-slate-200 focus:outline-none focus:border-emerald-600 focus:bg-white transition-all font-medium">
@@ -257,8 +288,10 @@ def generate():
             <input type="checkbox" id="login-remember" checked class="w-4 h-4 rounded text-emerald-600 focus:ring-0 border-slate-300">
             <span id="lbl-remember-me">Keep me signed in</span>
           </label>
-          <a href="#" onclick="alert('Contact extension helpline for reset: 0800-12345'); return false;"
-             id="lnk-forgot-pwd" class="text-emerald-700 font-bold hover:underline">Forgot?</a>
+          <button type="button" onclick="fillRoleCredentials()" id="btn-fill-role-creds" class="text-emerald-700 font-bold hover:underline flex items-center gap-1">
+            <span>⚡</span>
+            <span>Fill Sample Farmer</span>
+          </button>
         </div>
 
         <button type="submit" id="login-submit-btn" class="btn-primary w-full py-4 text-sm font-bold shadow-lg mt-3">
@@ -1926,6 +1959,33 @@ def generate():
       if (box) box.classList.add('hidden');
     }
 
+    const ROLE_SAMPLE_CREDS = {
+      'Farmer': { phone: '03001234567', pwd: 'Password123!', hint: '03001234567 or farmer@agrimate.pk', label: 'Farmer' },
+      'Buyer': { phone: '03219876543', pwd: 'Password123!', hint: '03219876543 or buyer@agrimate.pk', label: 'Buyer' },
+      'Expert/Admin': { phone: 'expert.farooq@agrimate.pk', pwd: 'Password123!', hint: 'expert.farooq@agrimate.pk or 03451122334', label: 'Expert' }
+    };
+
+    let selectedLoginRole = 'Farmer';
+
+    function selectLoginRole(role) {
+      selectedLoginRole = role;
+      const creds = ROLE_SAMPLE_CREDS[role] || ROLE_SAMPLE_CREDS['Farmer'];
+      const idInput = document.getElementById('login-identifier');
+      const fillBtn = document.getElementById('btn-fill-role-creds');
+      if (idInput) idInput.placeholder = creds.hint;
+      if (fillBtn) fillBtn.innerHTML = `<span>⚡</span><span>Fill Sample ${creds.label}</span>`;
+      hideLoginError();
+    }
+
+    function fillRoleCredentials() {
+      const creds = ROLE_SAMPLE_CREDS[selectedLoginRole] || ROLE_SAMPLE_CREDS['Farmer'];
+      const idInput = document.getElementById('login-identifier');
+      const pwdInput = document.getElementById('login-password');
+      if (idInput) idInput.value = creds.phone;
+      if (pwdInput) pwdInput.value = creds.pwd;
+      hideLoginError();
+    }
+
     function updateHeaderUserDisplay() {
       const name = localStorage.getItem('agrimate_user_name') || 'Farmer / User';
       const loc = localStorage.getItem('agrimate_user_location') || 'Okara, Punjab';
@@ -1943,6 +2003,8 @@ def generate():
       hideLoginError();
       const phone_or_email = document.getElementById('login-identifier').value.trim();
       const password = document.getElementById('login-password').value;
+      const roleEl = document.querySelector('input[name="login-role"]:checked');
+      const role = roleEl ? roleEl.value : selectedLoginRole;
 
       const submitBtn = document.getElementById('login-submit-btn');
       const txtEl = document.getElementById('txt-login-btn');
@@ -1954,23 +2016,23 @@ def generate():
         const res = await fetch(`${API_BASE}/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone_or_email, password })
+          body: JSON.stringify({ phone_or_email, password, role })
         });
         if (res.ok) {
           const data = await res.json();
           localStorage.setItem('agrimate_jwt', data.access_token);
-          const role = (data.user && data.user.role) || 'Farmer';
-          localStorage.setItem('agrimate_user_role', role);
+          const userRole = (data.user && data.user.role) || role || 'Farmer';
+          localStorage.setItem('agrimate_user_role', userRole);
           if (data.user) {
             localStorage.setItem('agrimate_user_name', data.user.name);
             localStorage.setItem('agrimate_user_location', data.user.location);
           }
-          currentRole = role;
+          currentRole = userRole;
           updateHeaderUserDisplay();
           navigateHome();
         } else {
           const errData = await res.json().catch(() => ({}));
-          showLoginError(errData.detail || 'Incorrect phone/email or password.');
+          showLoginError(errData.detail || 'Incorrect phone/email or password for ' + role + '.');
         }
       } catch (err) {
         showLoginError('Network error: Unable to reach AgriMate server.');
