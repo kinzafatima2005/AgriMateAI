@@ -67,3 +67,13 @@ def get_theme_tokens():
     """Returns central color palette ensuring zero hardcoded color divergence across platforms."""
     return CENTRAL_THEME_TOKENS
 
+
+@router.get("/weather", summary="Live High-Resolution Weather & 3-Day Agronomic Forecast")
+def get_location_weather(location: str = "Okara, Punjab"):
+    """
+    Returns real-time weather, humidity, wind, precipitation, and 3-day forecast
+    for the user's registered city, along with pesticide spraying agricultural advice.
+    """
+    from app.services.weather_service import get_live_weather
+    return get_live_weather(location)
+

@@ -454,34 +454,63 @@ def generate():
     </div>
 
 
-    <!-- Weather Card -->
-    <div class="card-clean p-5 mb-4">
+    <!-- Real Live Weather & 3-Day Agronomic Forecast Card -->
+    <div class="card-clean p-5 mb-4 shadow-xs">
       <div class="flex items-center justify-between mb-3">
         <div>
-          <div class="text-4xl font-black text-slate-900 tracking-tight">24°</div>
-          <div id="txt-weather-status" class="text-xs text-slate-500 font-medium mt-0.5">Okara, Punjab • Mild Morning</div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-4xl font-black text-slate-900 tracking-tight" id="dash-weather-temp">--°</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-black tracking-wide uppercase">LIVE DATA</span>
+          </div>
+          <div id="txt-weather-status" class="text-xs text-slate-500 font-medium mt-0.5">Fetching live forecast...</div>
         </div>
-        <div class="w-14 h-14 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-500 border border-amber-200/60 shadow-sm">
-          <svg class="w-8 h-8 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="promptChangeWeatherLocation()" title="Change City / Location" class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 flex items-center justify-center text-xs">
+            📍
+          </button>
+          <div class="w-14 h-14 rounded-2xl bg-amber-50 flex items-center justify-center text-3xl border border-amber-200/60 shadow-xs" id="dash-weather-icon">
+            🌤️
+          </div>
         </div>
       </div>
+
+      <!-- Real Metrics -->
       <div class="h-px bg-slate-100 my-3"></div>
       <div class="grid grid-cols-4 gap-2 text-center pt-1">
         <div class="p-2 rounded-xl bg-slate-50">
-          <div class="text-[10px] text-slate-400 font-semibold">Wind</div>
-          <div class="text-xs font-bold text-slate-800 mt-0.5">5km/h</div>
+          <div class="text-[10px] text-slate-400 font-semibold" id="lbl-weather-wind">Wind</div>
+          <div class="text-xs font-bold text-slate-800 mt-0.5" id="dash-weather-wind">-- km/h</div>
         </div>
         <div class="p-2 rounded-xl bg-amber-50 border border-amber-200/50">
-          <div class="text-[10px] text-amber-700 font-semibold">Humidity</div>
-          <div class="text-xs font-bold text-amber-800 mt-0.5">88%</div>
+          <div class="text-[10px] text-amber-700 font-semibold" id="lbl-weather-humidity">Humidity</div>
+          <div class="text-xs font-bold text-amber-800 mt-0.5" id="dash-weather-humidity">--%</div>
         </div>
         <div class="p-2 rounded-xl bg-slate-50">
-          <div class="text-[10px] text-slate-400 font-semibold">Rain</div>
-          <div class="text-xs font-bold text-slate-800 mt-0.5">0 mm</div>
+          <div class="text-[10px] text-slate-400 font-semibold" id="lbl-weather-rain">Rain</div>
+          <div class="text-xs font-bold text-slate-800 mt-0.5" id="dash-weather-rain">0 mm</div>
         </div>
         <div class="p-2 rounded-xl bg-slate-50">
-          <div class="text-[10px] text-slate-400 font-semibold">Feels</div>
-          <div class="text-xs font-bold text-slate-800 mt-0.5">+23°C</div>
+          <div class="text-[10px] text-slate-400 font-semibold" id="lbl-weather-feels">Feels</div>
+          <div class="text-xs font-bold text-slate-800 mt-0.5" id="dash-weather-feels">--°C</div>
+        </div>
+      </div>
+
+      <!-- Precision Agricultural Spray Advisory -->
+      <div id="dash-weather-spray-box" class="mt-3 p-2.5 rounded-2xl bg-emerald-50 border border-emerald-200/60 flex items-start gap-2">
+        <span class="text-base flex-shrink-0 mt-0.5" id="dash-weather-spray-icon">🌿</span>
+        <div class="text-[11px] text-emerald-950 font-medium leading-snug" id="dash-weather-spray-text">
+          Checking live crop spray conditions...
+        </div>
+      </div>
+
+      <!-- 3-Day Real Weather Forecast -->
+      <div class="mt-3.5 pt-3 border-t border-slate-100">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[11px] font-black text-slate-800 uppercase tracking-wide">3-Day Agricultural Forecast</span>
+          <span class="text-[10px] text-slate-400 font-medium">Real Forecast</span>
+        </div>
+        <div id="dash-weather-forecast-row" class="grid grid-cols-3 gap-2">
+          <!-- Dynamically populated from Open-Meteo -->
         </div>
       </div>
     </div>
@@ -1953,6 +1982,80 @@ def generate():
       hideLoginError();
     }
 
+    function promptChangeWeatherLocation() {
+      const currentLoc = localStorage.getItem('agrimate_user_location') || 'Okara, Punjab';
+      const newLoc = prompt('Enter City / District to view live agricultural weather (e.g., Okara, Multan, Sahiwal, Faisalabad, Lahore, Swat):', currentLoc);
+      if (newLoc && newLoc.trim()) {
+        const cleaned = newLoc.trim();
+        localStorage.setItem('agrimate_user_location', cleaned);
+        updateHeaderUserDisplay();
+      }
+    }
+
+    async function fetchLiveWeather(forcedLocation = null) {
+      try {
+        const userLoc = forcedLocation || localStorage.getItem('agrimate_user_location') || 'Okara, Punjab';
+        const res = await fetch(`${API_BASE}/system/weather?location=${encodeURIComponent(userLoc)}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!data || !data.success) return;
+
+        // 1. Update Current Weather
+        const tempEl = document.getElementById('dash-weather-temp');
+        const statusEl = document.getElementById('txt-weather-status');
+        const iconBox = document.getElementById('dash-weather-icon');
+        const windEl = document.getElementById('dash-weather-wind');
+        const humEl = document.getElementById('dash-weather-humidity');
+        const rainEl = document.getElementById('dash-weather-rain');
+        const feelsEl = document.getElementById('dash-weather-feels');
+
+        if (tempEl) tempEl.innerText = `${data.temperature}°`;
+        if (statusEl) {
+          const desc = currentLang === 'ur' ? data.condition_ur : data.condition;
+          statusEl.innerText = `${data.location_display} • ${desc}`;
+        }
+        if (iconBox) iconBox.innerText = data.icon || '☀️';
+        if (windEl) windEl.innerText = `${data.wind_speed} km/h`;
+        if (humEl) humEl.innerText = `${data.humidity}%`;
+        if (rainEl) rainEl.innerText = `${data.rain_mm} mm`;
+        if (feelsEl) feelsEl.innerText = `${data.feels_like > 0 ? '+' : ''}${data.feels_like}°C`;
+
+        // 2. Update Spray Advisory
+        const sprayText = document.getElementById('dash-weather-spray-text');
+        const sprayIcon = document.getElementById('dash-weather-spray-icon');
+        const sprayBox = document.getElementById('dash-weather-spray-box');
+        if (data.spray_advice) {
+          if (sprayText) sprayText.innerText = currentLang === 'ur' ? data.spray_advice.message_ur : data.spray_advice.message_en;
+          if (sprayIcon) {
+            sprayIcon.innerText = data.spray_advice.status === 'warning' ? '🌧️' : data.spray_advice.status === 'alert' ? '⚠️' : '🌿';
+          }
+          if (sprayBox) {
+            sprayBox.className = `mt-3 p-2.5 rounded-2xl flex items-start gap-2 text-xs font-medium ${
+              data.spray_advice.status === 'warning' ? 'bg-amber-50 border border-amber-200 text-amber-900' :
+              data.spray_advice.status === 'alert' ? 'bg-rose-50 border border-rose-200 text-rose-900' :
+              'bg-emerald-50 border border-emerald-200 text-emerald-950'
+            }`;
+          }
+        }
+
+        // 3. Update 3-Day Forecast Cards
+        const forecastContainer = document.getElementById('dash-weather-forecast-row');
+        if (forecastContainer && data.forecast && data.forecast.length > 0) {
+          forecastContainer.innerHTML = data.forecast.map(f => `
+            <div class="p-2.5 rounded-2xl bg-slate-50 border border-slate-100 text-center flex flex-col justify-between">
+              <div class="text-[10px] font-bold text-slate-500 uppercase tracking-tight">${escapeHtml(f.label)}</div>
+              <div class="text-xl my-1">${f.icon}</div>
+              <div class="text-xs font-extrabold text-slate-800">${f.temp_max}° <span class="text-slate-400 font-normal text-[10px]">/ ${f.temp_min}°</span></div>
+              <div class="text-[9px] text-slate-500 font-medium mt-0.5 truncate">${escapeHtml(currentLang === 'ur' ? f.condition_ur : f.condition)}</div>
+              ${f.rain_prob > 0 ? `<div class="text-[9px] font-bold text-sky-600 mt-0.5">💧 ${f.rain_prob}%</div>` : '<div class="text-[9px] text-slate-400 mt-0.5">💧 0%</div>'}
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.warn('Weather fetch failed:', err);
+      }
+    }
+
     function updateHeaderUserDisplay() {
       const name = localStorage.getItem('agrimate_user_name') || 'Farmer / User';
       const loc = localStorage.getItem('agrimate_user_location') || 'Okara, Punjab';
@@ -1963,6 +2066,8 @@ def generate():
       if (document.getElementById('dash-location-buyer')) document.getElementById('dash-location-buyer').innerText = loc;
       if (document.getElementById('dash-greeting-expert')) document.getElementById('dash-greeting-expert').innerText = `${name} 🔬`;
       if (document.getElementById('dash-location-expert')) document.getElementById('dash-location-expert').innerText = loc;
+
+      fetchLiveWeather(loc);
     }
 
     async function handleLoginSubmit(e) {
