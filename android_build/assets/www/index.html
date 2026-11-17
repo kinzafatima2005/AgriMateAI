@@ -1857,8 +1857,22 @@
       }
     }
 
-    function quickLoginRole(role, phone, name, location) {
-      localStorage.setItem('agrimate_jwt', 'jwt-token-' + role.toLowerCase() + '-active');
+    async function quickLoginRole(role, phone, name, location) {
+      try {
+        const res = await fetch(`${API_BASE}/auth/demo-login/${encodeURIComponent(role)}`, { method: 'POST' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.access_token) {
+            localStorage.setItem('agrimate_jwt', data.access_token);
+          } else {
+            localStorage.setItem('agrimate_jwt', 'jwt-token-' + role.toLowerCase() + '-active');
+          }
+        } else {
+          localStorage.setItem('agrimate_jwt', 'jwt-token-' + role.toLowerCase() + '-active');
+        }
+      } catch (e) {
+        localStorage.setItem('agrimate_jwt', 'jwt-token-' + role.toLowerCase() + '-active');
+      }
       localStorage.setItem('agrimate_user_role', role);
       localStorage.setItem('agrimate_user_name', name);
       localStorage.setItem('agrimate_user_location', location);

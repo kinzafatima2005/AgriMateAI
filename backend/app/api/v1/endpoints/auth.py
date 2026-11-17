@@ -110,6 +110,37 @@ def login_user(
     )
 
 
+@router.post("/demo-login/{role_name}", response_model=Token, summary="Instant demo sign-in for mobile prototype testing")
+def demo_login_by_role(
+    role_name: str,
+    db: Session = Depends(get_db)
+):
+    """Generates an instant genuine JWT for the requested role (Farmer, Buyer, Expert)."""
+    norm = role_name.strip().lower()
+    target_role = "Farmer"
+    phone_filter = "03001112233"
+    if "buyer" in norm:
+        target_role = "Buyer"
+        phone_filter = "03219998877"
+    elif "expert" in norm or "admin" in norm:
+        target_role = "Expert/Admin"
+        phone_filter = "03451122334"
+
+    user = db.query(User).filter(User.phone_or_email == phone_filter).first() or \
+           db.query(User).filter(User.role == target_role).first()
+    
+    if not user:
+        raise HTTPException(status_code=404, detail=f"No active user found for role {target_role}")
+
+    access_token = create_access_token(subject=str(user.id), role=user.role)
+    return Token(
+        access_token=access_token,
+        token_type="bearer",
+        user=UserResponse.model_validate(user),
+        disclaimer=DECISION_SUPPORT_DISCLAIMER_EN
+    )
+
+
 @router.get("/me", response_model=UserResponse, summary="Get current logged-in user profile")
 def get_current_user_profile(
     current_user: User = Depends(get_current_user)

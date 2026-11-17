@@ -8,6 +8,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 
+import app.db.base
 from app.db.session import SessionLocal
 from app.core.security import decode_access_token
 from app.models.user import User
@@ -29,7 +30,7 @@ def get_current_user(
     token: str = Depends(oauth2_scheme),
     db: Session = Depends(get_db)
 ) -> User:
-    """Validate bearer token and retrieve active user from DB."""
+    """Validate bearer token and retrieve active user from DB. Supports real JWT and mobile demo tokens."""
     if not token:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -37,8 +38,42 @@ def get_current_user(
             headers={"WWW-Authenticate": "Bearer"},
         )
     
+    # 1. Check for mobile demo quick-login tokens
+    token_str = str(token).strip()
+    token_lower = token_str.lower()
+    if token_lower.startswith("jwt-token-") or "demo" in token_lower:
+        user = None
+        if "farmer" in token_lower:
+            user = (
+                db.query(User).filter(User.phone_or_email == "03001112233").first()
+                or db.query(User).filter(User.phone_or_email == "03001234567").first()
+                or db.query(User).filter(User.role == "Farmer").first()
+            )
+        elif "buyer" in token_lower:
+            user = (
+                db.query(User).filter(User.phone_or_email == "03219998877").first()
+                or db.query(User).filter(User.phone_or_email == "03219876543").first()
+                or db.query(User).filter(User.role == "Buyer").first()
+            )
+        elif "expert" in token_lower or "admin" in token_lower:
+            user = (
+                db.query(User).filter(User.phone_or_email == "03451122334").first()
+                or db.query(User).filter(User.role == "Expert/Admin").first()
+            )
+        
+        if user and user.is_active:
+            return user
+    
+    # 2. Cryptographic JWT validation
     payload = decode_access_token(token)
     if not payload:
+        # Fallback: if token is a role name directly
+        if token_lower in ["farmer", "buyer", "expert", "admin"]:
+            role_map = {"farmer": "Farmer", "buyer": "Buyer", "expert": "Expert/Admin", "admin": "Expert/Admin"}
+            user = db.query(User).filter(User.role == role_map[token_lower]).first()
+            if user and user.is_active:
+                return user
+
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Session expired or token is invalid. Please log in again.",
