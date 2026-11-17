@@ -239,30 +239,6 @@
           <span id="txt-login-btn">Log In</span>
         </button>
       </form>
-
-      <!-- 1-Tap Quick Demo Role Logins -->
-      <div class="mt-6 pt-5 border-t border-slate-100">
-        <div id="txt-demo-title" class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2.5 text-center">
-          One-Tap Role Demo Sign In:
-        </div>
-        <div class="grid grid-cols-3 gap-2">
-          <button type="button" onclick="quickLoginRole('Farmer', '03001234567', 'Haji Ghulam Rasool', 'Okara, Punjab')"
-            class="py-2.5 px-2 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold hover:bg-emerald-100 transition-colors flex flex-col items-center gap-0.5">
-            <span class="text-base">👨‍🌾</span>
-            <span id="demo-farmer">Farmer</span>
-          </button>
-          <button type="button" onclick="quickLoginRole('Buyer', '03219998877', 'Lahore Commission Agent', 'Lahore, Punjab')"
-            class="py-2.5 px-2 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold hover:bg-amber-100 transition-colors flex flex-col items-center gap-0.5">
-            <span class="text-base">🛒</span>
-            <span id="demo-buyer">Buyer</span>
-          </button>
-          <button type="button" onclick="quickLoginRole('Expert/Admin', '03451122334', 'Dr. Tariq (Agronomist)', 'Faisalabad, Punjab')"
-            class="py-2.5 px-2 rounded-2xl bg-sky-50 border border-sky-200 text-sky-900 text-xs font-bold hover:bg-sky-100 transition-colors flex flex-col items-center gap-0.5">
-            <span class="text-base">🔬</span>
-            <span id="demo-expert">Expert</span>
-          </button>
-        </div>
-      </div>
     </div>
 
     <!-- Bottom Link -->
@@ -1857,38 +1833,36 @@
       }
     }
 
-    async function quickLoginRole(role, phone, name, location) {
-      try {
-        const res = await fetch(`${API_BASE}/auth/demo-login/${encodeURIComponent(role)}`, { method: 'POST' });
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.access_token) {
-            localStorage.setItem('agrimate_jwt', data.access_token);
-          } else {
-            localStorage.setItem('agrimate_jwt', 'jwt-token-' + role.toLowerCase() + '-active');
-          }
-        } else {
-          localStorage.setItem('agrimate_jwt', 'jwt-token-' + role.toLowerCase() + '-active');
-        }
-      } catch (e) {
-        localStorage.setItem('agrimate_jwt', 'jwt-token-' + role.toLowerCase() + '-active');
+    function showLoginError(msg) {
+      const box = document.getElementById('login-error-box');
+      const txt = document.getElementById('login-error-msg');
+      if (box && txt) {
+        txt.innerText = msg;
+        box.classList.remove('hidden');
       }
-      localStorage.setItem('agrimate_user_role', role);
-      localStorage.setItem('agrimate_user_name', name);
-      localStorage.setItem('agrimate_user_location', location);
-      currentRole = role;
-      updateHeaderUserDisplay();
-      navigateHome();
     }
 
-    function fillDemoAndLogin(phone, pwd, role) {
-      document.getElementById('login-identifier').value = phone;
-      document.getElementById('login-password').value = pwd;
-      quickLoginRole(role, phone, role === 'Farmer' ? 'Haji Ghulam Rasool' : role === 'Buyer' ? 'Lahore Commission Agent' : 'Dr. Tariq (Agronomist)', role === 'Farmer' ? 'Okara, Punjab' : 'Lahore, Punjab');
+    function hideLoginError() {
+      const box = document.getElementById('login-error-box');
+      if (box) box.classList.add('hidden');
+    }
+
+    function showRegError(msg) {
+      const box = document.getElementById('reg-error-box');
+      const txt = document.getElementById('reg-error-msg');
+      if (box && txt) {
+        txt.innerText = msg;
+        box.classList.remove('hidden');
+      }
+    }
+
+    function hideRegError() {
+      const box = document.getElementById('reg-error-box');
+      if (box) box.classList.add('hidden');
     }
 
     function updateHeaderUserDisplay() {
-      const name = localStorage.getItem('agrimate_user_name') || 'Ahmad Khan';
+      const name = localStorage.getItem('agrimate_user_name') || 'Farmer / User';
       const loc = localStorage.getItem('agrimate_user_location') || 'Okara, Punjab';
 
       if (document.getElementById('dash-greeting-farmer')) document.getElementById('dash-greeting-farmer').innerText = `Hello, ${name} 👋`;
@@ -1901,8 +1875,15 @@
 
     async function handleLoginSubmit(e) {
       e.preventDefault();
+      hideLoginError();
       const phone_or_email = document.getElementById('login-identifier').value.trim();
       const password = document.getElementById('login-password').value;
+
+      const submitBtn = document.getElementById('login-submit-btn');
+      const txtEl = document.getElementById('txt-login-btn');
+      const origText = txtEl ? txtEl.innerText : 'Log In';
+      if (txtEl) txtEl.innerText = 'Signing in...';
+      if (submitBtn) submitBtn.disabled = true;
 
       try {
         const res = await fetch(`${API_BASE}/auth/login`, {
@@ -1923,23 +1904,32 @@
           updateHeaderUserDisplay();
           navigateHome();
         } else {
-          // If server rejects, fall back smoothly for local testing
-          const fallbackRole = phone_or_email.includes('buyer') ? 'Buyer' : phone_or_email.includes('expert') ? 'Expert/Admin' : 'Farmer';
-          quickLoginRole(fallbackRole, phone_or_email, 'Farmer / User', 'Okara, Punjab');
+          const errData = await res.json().catch(() => ({}));
+          showLoginError(errData.detail || 'Incorrect phone/email or password.');
         }
       } catch (err) {
-        quickLoginRole('Farmer', phone_or_email, 'Haji Ghulam', 'Okara, Punjab');
+        showLoginError('Network error: Unable to reach AgriMate server.');
+      } finally {
+        if (txtEl) txtEl.innerText = origText;
+        if (submitBtn) submitBtn.disabled = false;
       }
     }
 
     async function handleRegisterSubmit(e) {
       e.preventDefault();
+      hideRegError();
       const name = document.getElementById('reg-name').value.trim();
       const phone_or_email = document.getElementById('reg-identifier').value.trim();
       const password = document.getElementById('reg-password').value;
       const roleEl = document.querySelector('input[name="reg-role"]:checked');
       const role = roleEl ? roleEl.value : 'Farmer';
       const location = document.getElementById('reg-location').value.trim();
+
+      const submitBtn = document.getElementById('reg-submit-btn');
+      const txtEl = document.getElementById('txt-reg-btn');
+      const origText = txtEl ? txtEl.innerText : 'Complete Registration';
+      if (txtEl) txtEl.innerText = 'Creating account...';
+      if (submitBtn) submitBtn.disabled = true;
 
       try {
         const res = await fetch(`${API_BASE}/auth/register`, {
@@ -1957,16 +1947,27 @@
           updateHeaderUserDisplay();
           navigateHome();
         } else {
-          quickLoginRole(role, phone_or_email, name, location);
+          const errData = await res.json().catch(() => ({}));
+          showRegError(errData.detail || 'Registration failed. An account with this phone/email may already exist.');
         }
       } catch (err) {
-        quickLoginRole(role, phone_or_email, name, location);
+        showRegError('Network error: Unable to reach AgriMate server.');
+      } finally {
+        if (txtEl) txtEl.innerText = origText;
+        if (submitBtn) submitBtn.disabled = false;
       }
     }
 
     function logoutUser() {
       localStorage.removeItem('agrimate_jwt');
       localStorage.removeItem('agrimate_user_role');
+      localStorage.removeItem('agrimate_user_name');
+      localStorage.removeItem('agrimate_user_location');
+      const idInput = document.getElementById('login-identifier');
+      const pwdInput = document.getElementById('login-password');
+      if (idInput) idInput.value = '';
+      if (pwdInput) pwdInput.value = '';
+      hideLoginError();
       navigateTo('screen-login');
     }
 
@@ -2747,15 +2748,18 @@
       fetchListings();
       fetchNotifications();
 
-      // Instagram / Facebook 2.5s splash animation
+      // Splash screen: check for active authenticated session
       setTimeout(() => {
         const token = localStorage.getItem('agrimate_jwt');
-        if (token) {
+        // If token exists and is a genuine signed session, proceed to dashboard
+        if (token && !token.startsWith('jwt-token-')) {
           navigateHome();
         } else {
+          localStorage.removeItem('agrimate_jwt');
+          localStorage.removeItem('agrimate_user_role');
           navigateTo('screen-login');
         }
-      }, 2500);
+      }, 2000);
     });
   </script>
 </body>
