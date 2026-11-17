@@ -904,20 +904,39 @@ def generate():
 
     <!-- Controls Bottom -->
     <div class="px-6 py-6 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col items-center gap-4">
-      <div class="flex items-center gap-4">
-        <button onclick="openSpeechModal('scan')" class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xl shadow-lg">
-          🎙️
+      <!-- Crop Mode Selector -->
+      <div class="flex items-center gap-2 bg-white/20 backdrop-blur-md p-1 rounded-2xl">
+        <button type="button" id="btn-scan-crop-potato" onclick="setScanCrop('Potato')" class="px-4 py-1.5 rounded-xl text-xs font-black transition-all bg-emerald-600 text-white shadow-sm">
+          🥔 Potato (آلو)
         </button>
-        <button onclick="triggerFileUpload()" class="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center p-1 active:scale-95 transition-transform" title="Take Leaf Photo">
-          <div class="w-full h-full rounded-full bg-white"></div>
-        </button>
-        <button onclick="triggerFileUpload()" class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xl shadow-lg">
-          📁
+        <button type="button" id="btn-scan-crop-tomato" onclick="setScanCrop('Tomato')" class="px-4 py-1.5 rounded-xl text-xs font-black transition-all bg-transparent text-white/80 hover:text-white">
+          🍅 Tomato (ٹماٹر)
         </button>
       </div>
-      <input type="file" id="camera-file-input" accept="image/*" class="hidden" onchange="handleFileSelected(event)">
+
+      <!-- Capture / Upload Buttons -->
+      <div class="flex items-center gap-5">
+        <button type="button" onclick="openSpeechModal('scan')" class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xl shadow-lg active:scale-95" title="Voice Symptom Note">
+          🎙️
+        </button>
+        
+        <!-- Native Camera Shutter Label -->
+        <label for="camera-file-input" class="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center p-1 active:scale-90 transition-transform cursor-pointer shadow-2xl" title="Take Leaf Photo">
+          <div class="w-full h-full rounded-full bg-white flex items-center justify-center text-2xl">📷</div>
+        </label>
+        
+        <!-- Gallery File Label -->
+        <label for="gallery-file-input" class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xl shadow-lg active:scale-95 cursor-pointer" title="Pick From Gallery">
+          📁
+        </label>
+      </div>
+
+      <!-- File Inputs: One with capture for direct camera, one for file chooser -->
+      <input type="file" id="camera-file-input" accept="image/*" capture="environment" style="position:fixed; top:-2000px; left:-2000px; opacity:0.01; pointer-events:none;" onchange="handleFileSelected(event)">
+      <input type="file" id="gallery-file-input" accept="image/*" style="position:fixed; top:-2000px; left:-2000px; opacity:0.01; pointer-events:none;" onchange="handleFileSelected(event)">
+
       <div id="txt-cam-hint" class="text-[11px] text-white/70 text-center font-medium">
-        Multimodal Scan fuses leaf photo + spoken symptoms into RAG diagnosis
+        Trained MobileNetV2 Deep Learning &bull; Grad-CAM Heatmap &bull; NARC Protocols
       </div>
     </div>
   </section>
@@ -2806,23 +2825,46 @@ def generate():
       }
     }
 
+    let currentScanCrop = 'Potato';
+
+    function setScanCrop(crop) {
+      currentScanCrop = crop;
+      const btnPotato = document.getElementById('btn-scan-crop-potato');
+      const btnTomato = document.getElementById('btn-scan-crop-tomato');
+      if (btnPotato && btnTomato) {
+        if (crop === 'Potato') {
+          btnPotato.className = 'px-4 py-1.5 rounded-xl text-xs font-black transition-all bg-emerald-600 text-white shadow-sm';
+          btnTomato.className = 'px-4 py-1.5 rounded-xl text-xs font-black transition-all bg-transparent text-white/80 hover:text-white';
+        } else {
+          btnPotato.className = 'px-4 py-1.5 rounded-xl text-xs font-black transition-all bg-transparent text-white/80 hover:text-white';
+          btnTomato.className = 'px-4 py-1.5 rounded-xl text-xs font-black transition-all bg-emerald-600 text-white shadow-sm';
+        }
+      }
+      const alignHint = document.getElementById('txt-cam-align');
+      if (alignHint) alignHint.innerText = `Align ${crop} leaf in frame`;
+    }
+
     async function handleFileSelected(e) {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
 
       const hintEl = document.getElementById('txt-cam-hint');
       const origHint = hintEl ? hintEl.innerText : '';
-      if (hintEl) hintEl.innerText = 'Analyzing leaf with Computer Vision & Grad-CAM...';
+      if (hintEl) hintEl.innerText = `Analyzing ${currentScanCrop} leaf with MobileNetV2 Neural Network...`;
 
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('crop_hint', 'Potato');
+      formData.append('crop_hint', currentScanCrop);
 
-      const token = localStorage.getItem('agrimate_jwt');
+      let token = localStorage.getItem('agrimate_jwt');
+      if (!token) {
+        token = 'jwt-token-farmer-active';
+      }
+
       try {
         const res = await fetch(`${API_BASE}/disease/scan`, {
           method: 'POST',
-          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+          headers: { 'Authorization': `Bearer ${token}` },
           body: formData
         });
 
@@ -2835,14 +2877,17 @@ def generate():
           alert(err.detail || 'Could not analyze leaf. Please ensure leaf is in focus and well lit.');
         }
       } catch (err) {
-        navigateTo('screen-scan-result');
+        console.error('Scan upload error:', err);
+        alert('Could not connect to AI Scanner server. Please check your connection.');
       } finally {
         if (hintEl) hintEl.innerText = origHint;
+        e.target.value = '';
       }
     }
 
     function triggerFileUpload() {
-      document.getElementById('camera-file-input').click();
+      const cam = document.getElementById('camera-file-input');
+      if (cam) cam.click();
     }
     function toggleCameraFlash() {
       alert('Flash toggled');

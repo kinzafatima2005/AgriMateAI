@@ -2,9 +2,13 @@
 AgriMate AI - Global Application Settings
 """
 
+import os
 from typing import List, Union
 from pydantic import AnyHttpUrl, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+_BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+_DEFAULT_DB = os.path.join(_BASE_DIR, "agrimate.db").replace("\\", "/")
 
 
 class Settings(BaseSettings):
@@ -16,7 +20,7 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days for rural mobile convenience
     
-    DATABASE_URL: str = "sqlite:///./agrimate.db"
+    DATABASE_URL: str = f"sqlite:///{_DEFAULT_DB}"
     
     OPENROUTER_API_KEY: str = ""
     OPENROUTER_MODEL: str = "openrouter/free"
