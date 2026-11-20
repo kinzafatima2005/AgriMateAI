@@ -81,18 +81,6 @@
       transform: scale(0.98);
       opacity: 0.92;
     }
-    .btn-expert {
-      background-color: #0369A1;
-      color: #FFFFFF;
-      font-weight: 700;
-      border-radius: 9999px;
-      box-shadow: 0 4px 14px 0 rgba(3, 105, 161, 0.28);
-      transition: all 0.15s ease;
-    }
-    .btn-expert:active {
-      transform: scale(0.98);
-      opacity: 0.92;
-    }
     .text-secondary {
       color: #64748B;
     }
@@ -221,7 +209,7 @@
         <!-- Role Selection for Login -->
         <div>
           <label id="lbl-login-role" class="block text-xs font-bold text-slate-700 mb-1.5">1. Select Your Role to Sign In:</label>
-          <div class="grid grid-cols-3 gap-2">
+          <div class="grid grid-cols-2 gap-2.5">
             <label class="cursor-pointer">
               <input type="radio" name="login-role" value="Farmer" checked class="peer sr-only" onchange="selectLoginRole('Farmer')">
               <div class="p-2.5 rounded-2xl border-2 border-slate-200 peer-checked:border-emerald-600 peer-checked:bg-emerald-50 text-center transition-all">
@@ -236,14 +224,6 @@
                 <div class="text-lg">🛒</div>
                 <div class="text-xs font-black text-slate-800 peer-checked:text-amber-900 mt-0.5">Buyer</div>
                 <div class="text-[9px] text-slate-400">خریدار</div>
-              </div>
-            </label>
-            <label class="cursor-pointer">
-              <input type="radio" name="login-role" value="Expert/Admin" class="peer sr-only" onchange="selectLoginRole('Expert/Admin')">
-              <div class="p-2.5 rounded-2xl border-2 border-slate-200 peer-checked:border-sky-600 peer-checked:bg-sky-50 text-center transition-all">
-                <div class="text-lg">🔬</div>
-                <div class="text-xs font-black text-slate-800 peer-checked:text-sky-900 mt-0.5">Expert</div>
-                <div class="text-[9px] text-slate-400">زرعی ماہر</div>
               </div>
             </label>
           </div>
@@ -350,7 +330,7 @@
         <!-- Role Selection -->
         <div>
           <label id="lbl-reg-role" class="block text-xs font-bold text-slate-700 mb-1.5">4. Select Your Role</label>
-          <div class="grid grid-cols-3 gap-2">
+          <div class="grid grid-cols-2 gap-2.5">
             <label class="cursor-pointer">
               <input type="radio" name="reg-role" value="Farmer" checked class="peer sr-only">
               <div class="p-2.5 rounded-2xl border-2 border-slate-200 peer-checked:border-emerald-600 peer-checked:bg-emerald-50 text-center transition-all">
@@ -365,14 +345,6 @@
                 <div class="text-lg">🛒</div>
                 <div class="text-xs font-black text-slate-800 peer-checked:text-amber-900 mt-0.5">Buyer</div>
                 <div class="text-[9px] text-slate-400">خریدار</div>
-              </div>
-            </label>
-            <label class="cursor-pointer">
-              <input type="radio" name="reg-role" value="Expert/Admin" class="peer sr-only">
-              <div class="p-2.5 rounded-2xl border-2 border-slate-200 peer-checked:border-sky-600 peer-checked:bg-sky-50 text-center transition-all">
-                <div class="text-lg">🔬</div>
-                <div class="text-xs font-black text-slate-800 peer-checked:text-sky-900 mt-0.5">Expert</div>
-                <div class="text-[9px] text-slate-400">زرعی ماہر</div>
               </div>
             </label>
           </div>
@@ -717,149 +689,6 @@
   </section>
 
   <!-- ========================================================= -->
-  <!-- SCREEN 6: EXPERT / AGRONOMIST DASHBOARD (TAILORED) -->
-  <!-- ========================================================= -->
-  <section id="screen-dashboard-expert" class="app-screen px-5 pt-8 pb-28 bg-white">
-    <!-- Top Header -->
-    <div class="flex items-center justify-between mb-4">
-      <div>
-        <div class="flex items-center gap-1.5">
-          <span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-900 text-[10px] font-black tracking-wide uppercase">🔬 AGRONOMIST CLINIC</span>
-        </div>
-        <h2 id="dash-greeting-expert" class="text-2xl font-black text-slate-900 tracking-tight mt-1">Dr. Tariq Mahmood 🔬</h2>
-        <div class="flex items-center gap-1.5 text-secondary text-xs mt-0.5 font-medium">
-          <svg class="w-3.5 h-3.5 text-sky-600 fill-current" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          <span id="dash-location-expert">Ayub Agri Research Institute (AARI)</span>
-        </div>
-      </div>
-      <div class="flex items-center gap-2">
-        <!-- Server Connection Status Pill -->
-        <button type="button" onclick="openServerConfigModal()" title="AgriMate Server Connection" class="server-status-pill flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all border border-slate-200">
-          <span class="w-2 h-2 rounded-full bg-slate-400"></span>
-          <span>Checking...</span>
-        </button>
-
-        <button onclick="openNotificationsModal()" title="Notifications" class="relative w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-slate-200">
-          <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
-          <span id="notif-badge-expert" class="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-rose-500 text-white text-[9px] font-bold flex items-center justify-center">1</span>
-        </button>
-
-        <div class="flex items-center bg-slate-100 p-1 rounded-full border border-slate-200 text-xs font-bold">
-          <button type="button" onclick="setLanguage('en')" id="dash-lang-en-e" class="px-2.5 py-1 rounded-full bg-white text-sky-900 shadow-sm transition-all">EN</button>
-          <button type="button" onclick="setLanguage('ur')" id="dash-lang-ur-e" class="px-2.5 py-1 rounded-full text-slate-500 hover:text-slate-800 transition-all">اردو</button>
-        </div>
-
-        <button onclick="logoutUser()" title="Log Out" class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:text-rose-600 hover:bg-rose-50 transition-colors">
-          <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/></svg>
-        </button>
-      </div>
-    </div>
-
-
-    <!-- Agronomist Clinical KPI Cards (2x2 Grid) -->
-    <div class="grid grid-cols-2 gap-3 mb-4">
-      <div class="card-clean p-4 border border-rose-200/80 bg-gradient-to-br from-white to-rose-50/30">
-        <div id="lbl-expert-kpi-flagged" class="text-xs font-bold text-rose-700">Flagged Scans</div>
-        <div id="val-expert-kpi-flagged" class="text-2xl font-black text-rose-900 mt-1">3 Pending</div>
-        <div class="text-[10px] text-rose-600 font-semibold mt-0.5">&lt;75% AI Confidence</div>
-      </div>
-
-      <div class="card-clean p-4 border border-sky-200/80 bg-gradient-to-br from-white to-sky-50/30">
-        <div id="lbl-expert-kpi-rag" class="text-xs font-bold text-sky-800">RAG Compendia</div>
-        <div class="text-2xl font-black text-sky-900 mt-1">21 Chunks</div>
-        <div class="text-[10px] text-sky-700 font-semibold mt-0.5">PARC, NARC & Punjab Agri</div>
-      </div>
-
-      <div class="card-clean p-4 border border-slate-200 bg-gradient-to-br from-white to-slate-50">
-        <div id="lbl-expert-kpi-rates" class="text-xs font-bold text-slate-500">Mandi Benchmarks</div>
-        <div class="text-2xl font-black text-slate-900 mt-1">9 Hubs</div>
-        <div class="text-[10px] text-secondary font-semibold mt-0.5">Updated today for farmers</div>
-      </div>
-
-      <div class="card-clean p-4 border border-amber-200/80 bg-gradient-to-br from-white to-amber-50/30">
-        <div id="lbl-expert-kpi-alert" class="text-xs font-bold text-amber-800">Outbreak Risk</div>
-        <div class="text-2xl font-black text-amber-900 mt-1">High (Fog)</div>
-        <div class="text-[10px] text-amber-700 font-semibold mt-0.5">Late Blight advisory active</div>
-      </div>
-    </div>
-
-    <!-- Expert Quick Action Launchers (4 Column Grid) -->
-    <div class="grid grid-cols-4 gap-2 mb-5">
-      <div onclick="navigateTo('screen-expert')" class="card-clean p-2.5 text-center cursor-pointer hover:border-sky-500 transition-all flex flex-col items-center justify-between">
-        <div class="w-9 h-9 rounded-2xl bg-rose-100 text-rose-800 flex items-center justify-center font-bold text-base mb-1 shadow-sm">
-          🔬
-        </div>
-        <div id="btn-expert-review-queue" class="text-[11px] font-bold text-slate-900 leading-tight">Review Scans</div>
-      </div>
-
-      <div onclick="openExpertAddRagModal()" class="card-clean p-2.5 text-center cursor-pointer hover:border-sky-500 transition-all flex flex-col items-center justify-between">
-        <div class="w-9 h-9 rounded-2xl bg-sky-100 text-sky-800 flex items-center justify-center font-bold text-base mb-1 shadow-sm">
-          📚
-        </div>
-        <div id="btn-expert-add-rag" class="text-[11px] font-bold text-slate-900 leading-tight">Add RAG Doc</div>
-      </div>
-
-      <div onclick="openExpertAddRateModal()" class="card-clean p-2.5 text-center cursor-pointer hover:border-sky-500 transition-all flex flex-col items-center justify-between">
-        <div class="w-9 h-9 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-base mb-1 shadow-sm">
-          🏷️
-        </div>
-        <div id="btn-expert-mandi-rates" class="text-[11px] font-bold text-slate-900 leading-tight">Mandi Rates</div>
-      </div>
-
-      <div onclick="broadcastOutbreakWarning()" class="card-clean p-2.5 text-center cursor-pointer hover:border-sky-500 transition-all flex flex-col items-center justify-between">
-        <div class="w-9 h-9 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-base mb-1 shadow-sm">
-          📢
-        </div>
-        <div id="btn-expert-outbreak" class="text-[11px] font-bold text-slate-900 leading-tight">Alert Blast</div>
-      </div>
-    </div>
-
-    <!-- Urgent Review Queue Preview -->
-    <div class="space-y-3 mb-5">
-      <div class="flex items-center justify-between">
-        <h3 id="txt-expert-queue-heading" class="text-base font-black text-slate-900 tracking-tight">Urgent Scan Review Queue</h3>
-        <span onclick="navigateTo('screen-expert')" class="text-xs text-sky-800 font-bold cursor-pointer">All Flagged &rarr;</span>
-      </div>
-
-      <div id="expert-scans-preview" class="space-y-3">
-        <!-- Rendered dynamically -->
-        <div class="card-clean p-4 border border-rose-200">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-black text-slate-900">Scan #104 &bull; Potato Foliage</span>
-            <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 font-bold text-[10px]">62% Conf (Low)</span>
-          </div>
-          <div class="text-[11px] text-slate-600 mb-2">Farmer: Haji Ghulam Rasool (Okara) &bull; Detected: Ambiguous Blight</div>
-          <div class="p-2.5 bg-slate-50 rounded-xl text-[11px] text-slate-700 italic mb-3 border border-slate-100">
-            "پتوں پر کالے گول دھبے بن رہے ہیں اور صبح کی دھند کے بعد پھیل رہے ہیں"
-          </div>
-          <button onclick="navigateTo('screen-expert')" class="btn-expert w-full py-2.5 text-xs font-bold shadow-xs">
-            Review Leaf Photo & Prescribe Spray
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Verified Prescriptions Log -->
-    <div class="space-y-3 mb-4">
-      <div class="flex items-center justify-between">
-        <h3 id="txt-expert-recent-prescriptions" class="text-base font-black text-slate-900 tracking-tight">Recent Verified Advice</h3>
-        <span class="text-xs text-sky-800 font-bold">Punjab Agri Verified</span>
-      </div>
-
-      <div class="card-clean p-4 border border-slate-200">
-        <div class="text-xs font-bold text-slate-900 mb-1">Early Blight (Alternaria solani) Verified</div>
-        <div class="text-[11px] text-slate-600 mb-2">Ayub Agri Extension &bull; Prescribed Difenoconazole @ 100ml/100L water.</div>
-        <div class="text-[10px] text-emerald-800 font-bold">Dispatched to Farmer via FCM HTTP v1 Push</div>
-      </div>
-    </div>
-
-    <!-- Disclaimer -->
-    <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 leading-snug">
-      <strong>Agronomic Duty Notice:</strong> Certified expert reviews update the central RAG knowledge graph and train future model weights for Pakistani Solanaceae diseases.
-    </div>
-  </section>
-
-  <!-- ========================================================= -->
   <!-- SCREEN 7: SCANNER (CAMERA VIEW) -->
   <!-- ========================================================= -->
   <section id="screen-camera" class="app-screen bg-black justify-between pb-24">
@@ -1131,110 +960,6 @@
     <!-- TAB 4: DEALS -->
     <div id="market-tab-deals" class="space-y-4 hidden">
       <div id="deals-container" class="space-y-3"></div>
-    </div>
-  </section>
-
-  <!-- ========================================================= -->
-  <!-- SCREEN 11: EXPERT AGRONOMIST QUEUE -->
-  <!-- ========================================================= -->
-  <section id="screen-expert" class="app-screen px-5 pt-8 pb-28 bg-white">
-    <div class="flex items-center justify-between mb-4">
-      <div>
-        <h2 id="expert-title" class="text-2xl font-black text-slate-900 tracking-tight">Agronomist Clinic 🔬</h2>
-        <div id="expert-subtitle" class="text-xs text-secondary font-medium">Review Low-Confidence Scans &bull; Ingest RAG Docs</div>
-      </div>
-      <span class="w-8 h-8 rounded-full bg-sky-100 text-sky-800 flex items-center justify-center font-bold text-sm">👨‍🌾</span>
-    </div>
-
-    <div class="flex bg-slate-100 p-1 rounded-2xl mb-4 border border-slate-200 text-xs font-bold hide-scrollbar overflow-x-auto">
-      <button onclick="switchExpertTab('scans')" id="exp-btn-scans" class="flex-1 py-2 px-3 rounded-xl bg-white text-emerald-800 shadow-xs transition-all whitespace-nowrap">
-        🔬 Flagged Scans
-      </button>
-      <button onclick="switchExpertTab('rag')" id="exp-btn-rag" class="flex-1 py-2 px-3 rounded-xl text-slate-600 transition-all whitespace-nowrap">
-        📚 RAG Corpus
-      </button>
-      <button onclick="switchExpertTab('rates')" id="exp-btn-rates" class="flex-1 py-2 px-3 rounded-xl text-slate-600 transition-all whitespace-nowrap">
-        🏷️ Mandi Rates
-      </button>
-    </div>
-
-    <!-- TAB 1: FLAGGED SCANS -->
-    <div id="expert-tab-scans" class="space-y-4">
-      <div id="flagged-scans-container" class="space-y-3"></div>
-    </div>
-
-    <!-- TAB 2: RAG CORPUS MANAGEMENT -->
-    <div id="expert-tab-rag" class="space-y-4 hidden">
-      <div class="card-clean p-4 border border-slate-200">
-        <h4 class="text-xs font-bold text-slate-900 mb-2">➕ Add Agronomic Finding / Bulletin</h4>
-        <form onsubmit="handleExpertAddRagDoc(event)" class="space-y-2.5 text-xs">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1 text-[11px]">Document Name</label>
-            <input id="exp-rag-docname" type="text" value="Punjab_Agri_Potato_2024.pdf" required class="w-full bg-slate-50 text-slate-900 rounded-xl p-2.5 border border-slate-200">
-          </div>
-          <div class="grid grid-cols-2 gap-2">
-            <div>
-              <label class="block font-bold text-slate-700 mb-1 text-[11px]">Authority</label>
-              <input id="exp-rag-authority" type="text" value="Punjab Agriculture Extension" required class="w-full bg-slate-50 text-slate-900 rounded-xl p-2.5 border border-slate-200">
-            </div>
-            <div>
-              <label class="block font-bold text-slate-700 mb-1 text-[11px]">Year & Page</label>
-              <div class="grid grid-cols-2 gap-1">
-                <input id="exp-rag-year" type="number" value="2024" required class="bg-slate-50 text-slate-900 rounded-xl p-2.5 border border-slate-200">
-                <input id="exp-rag-page" type="number" value="1" required class="bg-slate-50 text-slate-900 rounded-xl p-2.5 border border-slate-200">
-              </div>
-            </div>
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1 text-[11px]">Verified Advice Text</label>
-            <textarea id="exp-rag-text" rows="3" required class="w-full bg-slate-50 text-slate-900 rounded-xl p-2.5 border border-slate-200 resize-none">For bacterial wilt in Potato, employ certified tubers and ensure 3-year crop rotation with corn or wheat.</textarea>
-          </div>
-          <button type="submit" class="btn-primary w-full py-2.5 text-xs font-bold shadow-xs">
-            Index in FAISS Vector Store
-          </button>
-        </form>
-      </div>
-      <div id="rag-docs-list-container" class="space-y-2"></div>
-    </div>
-
-    <!-- TAB 3: MANDI RATES MANAGEMENT -->
-    <div id="expert-tab-rates" class="space-y-4 hidden">
-      <div class="card-clean p-4 border border-slate-200">
-        <h4 class="text-xs font-bold text-slate-900 mb-2">Publish Mandi Rate Benchmark</h4>
-        <form onsubmit="handleExpertAddRate(event)" class="space-y-2.5 text-xs">
-          <div class="grid grid-cols-2 gap-2">
-            <div>
-              <label class="block font-bold text-slate-700 mb-1 text-[11px]">Market Name</label>
-              <input id="exp-rate-market" type="text" value="Okara Ghalla Mandi" required class="w-full bg-slate-50 text-slate-900 rounded-xl p-2.5 border border-slate-200">
-            </div>
-            <div>
-              <label class="block font-bold text-slate-700 mb-1 text-[11px]">District</label>
-              <input id="exp-rate-district" type="text" value="Okara" required class="w-full bg-slate-50 text-slate-900 rounded-xl p-2.5 border border-slate-200">
-            </div>
-          </div>
-          <div class="grid grid-cols-3 gap-2">
-            <div>
-              <label class="block font-bold text-slate-700 mb-1 text-[11px]">Crop</label>
-              <select id="exp-rate-crop" class="w-full bg-slate-50 text-slate-900 rounded-xl p-2.5 border border-slate-200">
-                <option value="Potato">Potato</option>
-                <option value="Tomato">Tomato</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-bold text-slate-700 mb-1 text-[11px]">Modal Price</label>
-              <input id="exp-rate-modal" type="number" value="2500" required class="w-full bg-slate-50 text-slate-900 rounded-xl p-2.5 border border-slate-200">
-            </div>
-            <div>
-              <label class="block font-bold text-slate-700 mb-1 text-[11px]">Change %</label>
-              <input id="exp-rate-change" type="number" step="0.1" value="2.5" required class="w-full bg-slate-50 text-slate-900 rounded-xl p-2.5 border border-slate-200">
-            </div>
-          </div>
-          <button type="submit" class="btn-primary w-full py-2.5 text-xs font-bold shadow-xs">
-            Publish Mandi Rate
-          </button>
-        </form>
-      </div>
-      <div id="expert-rates-list-container" class="space-y-2"></div>
     </div>
   </section>
 
@@ -1913,7 +1638,6 @@
         lnk_signup: "Create Account",
         demo_farmer: "Farmer",
         demo_buyer: "Buyer",
-        demo_expert: "Expert",
         reg_heading: "Create Account 🌿",
         reg_subtitle: "Select your role to access your dedicated dashboard.",
         lbl_reg_name: "1. Full Name",
@@ -1947,16 +1671,6 @@
         btn_buyer_logistics: "Logistics",
         txt_buyer_pipeline_heading: "Active Deal Pipeline",
         txt_buyer_top_lots: "Verified Harvest Lots",
-        lbl_expert_kpi_flagged: "Flagged Scans",
-        lbl_expert_kpi_rag: "RAG Compendia",
-        lbl_expert_kpi_rates: "Mandi Benchmarks",
-        lbl_expert_kpi_alert: "Outbreak Risk",
-        btn_expert_review_queue: "Review Scans",
-        btn_expert_add_rag: "Add RAG Doc",
-        btn_expert_mandi_rates: "Mandi Rates",
-        btn_expert_outbreak: "Alert Blast",
-        txt_expert_queue_heading: "Urgent Scan Review Queue",
-        txt_expert_recent_prescriptions: "Recent Verified Advice",
         diary_heading: "Crop Health Diary 📖",
         diary_subheading: "Offline-First • Latest Timestamp Wins",
         btn_add_diary_text: "New Log",
@@ -1978,7 +1692,6 @@
         lnk_signup: "نیا اکاؤنٹ بنائیں",
         demo_farmer: "کاشتکار",
         demo_buyer: "خریدار",
-        demo_expert: "زرعی ماہر",
         reg_heading: "نیا اکاؤنٹ بنائیں 🌿",
         reg_subtitle: "اپنا کردار منتخب کریں تاکہ آپ کا مخصوص ڈیش بورڈ کھل سکے۔",
         lbl_reg_name: "1. پورا نام",
@@ -2012,16 +1725,6 @@
         btn_buyer_logistics: "ٹرانسپورٹ",
         txt_buyer_pipeline_heading: "جاری سودوں کی صورتحال",
         txt_buyer_top_lots: "تصدیق شدہ تیار فصلیں",
-        lbl_expert_kpi_flagged: "زیرِ جائزہ اسکین",
-        lbl_expert_kpi_rag: "مستند زرعی کتب",
-        lbl_expert_kpi_rates: "منڈی کے نرخ",
-        lbl_expert_kpi_alert: "بیماری کا خطرہ",
-        btn_expert_review_queue: "اسکین دیکھیں",
-        btn_expert_add_rag: "کتاب شامل کریں",
-        btn_expert_mandi_rates: "نرخ اپ ڈیٹ",
-        btn_expert_outbreak: "الرٹ بھیجیں",
-        txt_expert_queue_heading: "فوری جائزے کے اسکین",
-        txt_expert_recent_prescriptions: "ماہر کے حالیہ نسخے",
         diary_heading: "فصل کی صحت ڈائری 📖",
         diary_subheading: "آف لائن ریکارڈ • جدید ترین اندراج ترجیح پائے گا",
         btn_add_diary_text: "نیا اندراج",
@@ -2074,7 +1777,6 @@
     // Role-Based Central Redirection
     function getRoleDashboardScreen(role) {
       if (role === 'Buyer') return 'screen-dashboard-buyer';
-      if (role === 'Expert/Admin') return 'screen-dashboard-expert';
       return 'screen-dashboard-farmer';
     }
 
@@ -2119,7 +1821,6 @@
       const navMap = {
         'screen-dashboard-farmer': 'nav-btn-home',
         'screen-dashboard-buyer': 'nav-btn-home',
-        'screen-dashboard-expert': 'nav-btn-home',
         'screen-camera': 'nav-btn-scanner',
         'screen-scan-result': 'nav-btn-scanner',
         'screen-diary': 'nav-btn-diary',
@@ -2207,8 +1908,7 @@
 
     const ROLE_SAMPLE_CREDS = {
       'Farmer': { phone: '03001234567', pwd: 'Password123!', hint: '03001234567 or farmer@agrimate.pk', label: 'Farmer' },
-      'Buyer': { phone: '03219876543', pwd: 'Password123!', hint: '03219876543 or buyer@agrimate.pk', label: 'Buyer' },
-      'Expert/Admin': { phone: 'expert.farooq@agrimate.pk', pwd: 'Password123!', hint: 'expert.farooq@agrimate.pk or 03451122334', label: 'Expert' }
+      'Buyer': { phone: '03219876543', pwd: 'Password123!', hint: '03219876543 or buyer@agrimate.pk', label: 'Buyer' }
     };
 
     let selectedLoginRole = 'Farmer';
@@ -2328,8 +2028,6 @@
       if (document.getElementById('dash-location-farmer')) document.getElementById('dash-location-farmer').innerText = loc;
       if (document.getElementById('dash-greeting-buyer')) document.getElementById('dash-greeting-buyer').innerText = `${name} 👋`;
       if (document.getElementById('dash-location-buyer')) document.getElementById('dash-location-buyer').innerText = loc;
-      if (document.getElementById('dash-greeting-expert')) document.getElementById('dash-greeting-expert').innerText = `${name} 🔬`;
-      if (document.getElementById('dash-location-expert')) document.getElementById('dash-location-expert').innerText = loc;
 
       fetchLiveWeather(loc);
     }
@@ -2616,24 +2314,6 @@
       if (tabName === 'deals') fetchDeals();
     }
 
-    function switchExpertTab(tabName) {
-      ['scans', 'rag', 'rates'].forEach(t => {
-        const btn = document.getElementById(`exp-btn-${t}`);
-        const view = document.getElementById(`expert-tab-${t}`);
-        if (btn && view) {
-          if (t === tabName) {
-            btn.className = 'flex-1 py-2 px-3 rounded-xl bg-white text-sky-800 shadow-xs transition-all whitespace-nowrap';
-            view.classList.remove('hidden');
-          } else {
-            btn.className = 'flex-1 py-2 px-3 rounded-xl text-slate-600 transition-all whitespace-nowrap';
-            view.classList.add('hidden');
-          }
-        }
-      });
-      if (tabName === 'scans') fetchFlaggedScans();
-      if (tabName === 'rag') fetchRagDocs();
-    }
-
     function switchLogisticsView(subView) {
       const btnT = document.getElementById('btn-sub-transport');
       const btnC = document.getElementById('btn-sub-cold');
@@ -2836,80 +2516,6 @@
         }
       } catch (e) {}
     }
-
-    async function fetchFlaggedScans() {
-      const container = document.getElementById('flagged-scans-container');
-      if (!container) return;
-      try {
-        const res = await fetch(`${API_BASE}/expert/flagged-scans`);
-        if (res.ok) {
-          const data = await res.json();
-          const scans = data.data || [];
-          if (scans.length === 0) {
-            container.innerHTML = `<div class="p-6 text-center text-secondary card-clean">No low-confidence scans pending.</div>`;
-            return;
-          }
-          container.innerHTML = scans.map(s => `
-            <div class="card-clean p-4 border border-rose-200">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-black text-slate-900">Scan #${s.id} &bull; ${s.crop_name}</span>
-                <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 font-bold text-[10px]">${s.confidence_pct}% Conf</span>
-              </div>
-              <div class="text-[11px] text-slate-600 mb-2">Farmer: ${s.farmer_name} (${s.farmer_location})</div>
-              <div class="p-2 bg-slate-50 rounded-xl text-[11px] text-slate-700 italic mb-2.5">"${s.user_description || 'Leaf spotting observed'}"</div>
-              <button onclick="submitExpertScanReview(${s.id})" class="btn-expert w-full py-2.5 text-xs font-bold shadow-xs">
-                Submit Review & Notify Farmer
-              </button>
-            </div>
-          `).join('');
-        }
-      } catch (e) {}
-    }
-
-    async function submitExpertScanReview(scanId) {
-      alert(`Scan #${scanId} reviewed and diagnostic push notification dispatched to farmer!`);
-      fetchFlaggedScans();
-    }
-
-    async function fetchRagDocs() {
-      const container = document.getElementById('rag-docs-list-container');
-      if (!container) return;
-      try {
-        const res = await fetch(`${API_BASE}/expert/rag-docs`);
-        if (res.ok) {
-          const data = await res.json();
-          const docs = data.data || [];
-          container.innerHTML = docs.map(d => `
-            <div class="card-clean p-3 border border-slate-200">
-              <div class="flex items-center justify-between mb-1">
-                <span class="text-xs font-bold text-slate-900">${d.document_name}</span>
-                <span class="text-[10px] text-sky-800 font-bold bg-sky-50 px-2 py-0.5 rounded-full">${d.total_chunks} chunks</span>
-              </div>
-              <div class="text-[10px] text-secondary font-medium">${d.authority} &bull; ${d.publication_year}</div>
-            </div>
-          `).join('');
-        }
-      } catch (e) {}
-    }
-
-    async function handleExpertAddRagDoc(e) {
-      e.preventDefault();
-      alert('Agronomic bulletin indexed into FAISS vector database!');
-      fetchRagDocs();
-    }
-
-    async function handleExpertAddRate(e) {
-      e.preventDefault();
-      alert('Mandi benchmark rate broadcasted to farmer & buyer tickers!');
-      fetchMandiTicker();
-    }
-
-    function broadcastOutbreakWarning() {
-      alert('Regional Late Blight alert broadcasted to 1,240 registered farmers in Okara & Sahiwal!');
-    }
-
-    function openExpertAddRagModal() { switchExpertTab('rag'); }
-    function openExpertAddRateModal() { switchExpertTab('rates'); }
 
     // --- NOTIFICATIONS & FCM PUSH ---
     async function fetchNotifications() {

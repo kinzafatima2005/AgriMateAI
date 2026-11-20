@@ -69,7 +69,7 @@ def root():
         "tagline": "Empowering Pakistani Agriculture with Grounded AI",
         "version": settings.VERSION,
         "docs_url": f"{settings.API_V1_STR}/docs",
-        "supported_roles": ["Farmer", "Buyer", "Expert/Admin"],
+        "supported_roles": ["Farmer", "Buyer"],
         "disclaimer": DECISION_SUPPORT_DISCLAIMER_EN
     }
 

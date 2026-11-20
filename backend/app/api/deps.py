@@ -55,11 +55,6 @@ def get_current_user(
                 or db.query(User).filter(User.phone_or_email == "03219876543").first()
                 or db.query(User).filter(User.role == "Buyer").first()
             )
-        elif "expert" in token_lower or "admin" in token_lower:
-            user = (
-                db.query(User).filter(User.phone_or_email == "03451122334").first()
-                or db.query(User).filter(User.role == "Expert/Admin").first()
-            )
         
         if user and user.is_active:
             return user
@@ -68,8 +63,8 @@ def get_current_user(
     payload = decode_access_token(token)
     if not payload:
         # Fallback: if token is a role name directly
-        if token_lower in ["farmer", "buyer", "expert", "admin"]:
-            role_map = {"farmer": "Farmer", "buyer": "Buyer", "expert": "Expert/Admin", "admin": "Expert/Admin"}
+        if token_lower in ["farmer", "buyer"]:
+            role_map = {"farmer": "Farmer", "buyer": "Buyer"}
             user = db.query(User).filter(User.role == role_map[token_lower]).first()
             if user and user.is_active:
                 return user

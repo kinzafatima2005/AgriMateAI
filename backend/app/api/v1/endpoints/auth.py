@@ -19,8 +19,8 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 @router.get("/roles", response_model=List[str], summary="List supported AgriMate user roles")
 def get_roles():
-    """Returns valid roles for minimal registration: Farmer, Buyer, Expert/Admin."""
-    return [role.value for role in UserRole]
+    """Returns valid roles for minimal registration: Farmer, Buyer."""
+    return [UserRole.FARMER.value, UserRole.BUYER.value]
 
 
 @router.post("/register", response_model=Token, status_code=status.HTTP_201_CREATED, summary="Minimal user registration")
@@ -33,7 +33,7 @@ def register_user(
     - name: Full Name
     - phone_or_email: Pakistani phone number (e.g. 03001234567) or email
     - password: Password (min 6 chars)
-    - role: Farmer, Buyer, or Expert/Admin
+    - role: Farmer or Buyer
     - location: District and province (e.g. Multan, Punjab)
     """
     normalized_identifier = payload.phone_or_email.strip().lower()
@@ -126,16 +126,13 @@ def demo_login_by_role(
     role_name: str,
     db: Session = Depends(get_db)
 ):
-    """Generates an instant genuine JWT for the requested role (Farmer, Buyer, Expert)."""
+    """Generates an instant genuine JWT for the requested role (Farmer, Buyer)."""
     norm = role_name.strip().lower()
     target_role = "Farmer"
     phone_filter = "03001112233"
     if "buyer" in norm:
         target_role = "Buyer"
         phone_filter = "03219998877"
-    elif "expert" in norm or "admin" in norm:
-        target_role = "Expert/Admin"
-        phone_filter = "03451122334"
 
     user = db.query(User).filter(User.phone_or_email == phone_filter).first() or \
            db.query(User).filter(User.role == target_role).first()
