@@ -42,6 +42,20 @@ public class MainActivity extends Activity {
         }
         window.getDecorView().setSystemUiVisibility(uiVisibility);
 
+        // Explicitly request Camera and Microphone runtime permissions for Leaf Scanner & Voice
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            java.util.List<String> neededPerms = new java.util.ArrayList<String>();
+            if (checkSelfPermission(android.Manifest.permission.CAMERA) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                neededPerms.add(android.Manifest.permission.CAMERA);
+            }
+            if (checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                neededPerms.add(android.Manifest.permission.RECORD_AUDIO);
+            }
+            if (!neededPerms.isEmpty()) {
+                requestPermissions(neededPerms.toArray(new String[0]), 100);
+            }
+        }
+
         FrameLayout layout = new FrameLayout(this);
         layout.setBackgroundColor(0xFFFFFFFF);
 
@@ -82,21 +96,39 @@ public class MainActivity extends Activity {
                 }
                 MainActivity.this.filePathCallback = filePathCallback;
 
-                Intent intent = null;
+                Intent chooserIntent = null;
                 try {
-                    intent = fileChooserParams.createIntent();
+                    Intent takePictureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                    contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
+                    contentSelectionIntent.setType("image/*");
+
+                    Intent[] intentArray;
+                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                        intentArray = new Intent[]{takePictureIntent};
+                    } else {
+                        intentArray = new Intent[0];
+                    }
+
+                    chooserIntent = new Intent(Intent.ACTION_CHOOSER);
+                    chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
+                    chooserIntent.putExtra(Intent.EXTRA_TITLE, "Select or Capture Leaf Image");
+                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray);
                 } catch (Exception e) {
-                    intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    intent.setType("image/*");
+                    Intent pickIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                    pickIntent.addCategory(Intent.CATEGORY_OPENABLE);
+                    pickIntent.setType("image/*");
+                    chooserIntent = Intent.createChooser(pickIntent, "Select Leaf Image");
                 }
 
                 try {
-                    Intent chooser = Intent.createChooser(intent, "Select Leaf Photo");
-                    startActivityForResult(chooser, FILE_CHOOSER_REQUEST_CODE);
+                    startActivityForResult(chooserIntent, FILE_CHOOSER_REQUEST_CODE);
                     return true;
                 } catch (Exception e) {
-                    MainActivity.this.filePathCallback = null;
+                    if (MainActivity.this.filePathCallback != null) {
+                        MainActivity.this.filePathCallback.onReceiveValue(null);
+                        MainActivity.this.filePathCallback = null;
+                    }
                     return false;
                 }
             }
@@ -123,10 +155,25 @@ public class MainActivity extends Activity {
         if (requestCode == FILE_CHOOSER_REQUEST_CODE) {
             if (filePathCallback == null) return;
             Uri[] results = null;
-            if (resultCode == Activity.RESULT_OK && data != null) {
-                results = WebChromeClient.FileChooserParams.parseResult(resultCode, data);
-                if (results == null && data.getData() != null) {
-                    results = new Uri[]{data.getData()};
+            if (resultCode == Activity.RESULT_OK) {
+                if (data != null) {
+                    results = WebChromeClient.FileChooserParams.parseResult(resultCode, data);
+                    if (results == null && data.getData() != null) {
+                        results = new Uri[]{data.getData()};
+                    }
+                    if (results == null && data.getExtras() != null) {
+                        Object bmpObj = data.getExtras().get("data");
+                        if (bmpObj instanceof android.graphics.Bitmap) {
+                            try {
+                                java.io.File file = new java.io.File(getCacheDir(), "leaf_scan_" + System.currentTimeMillis() + ".jpg");
+                                java.io.FileOutputStream fos = new java.io.FileOutputStream(file);
+                                ((android.graphics.Bitmap) bmpObj).compress(android.graphics.Bitmap.CompressFormat.JPEG, 92, fos);
+                                fos.flush();
+                                fos.close();
+                                results = new Uri[]{Uri.fromFile(file)};
+                            } catch (Exception ignored) {}
+                        }
+                    }
                 }
             }
             filePathCallback.onReceiveValue(results);
