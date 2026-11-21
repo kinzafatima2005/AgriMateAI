@@ -609,33 +609,6 @@ def generate():
     </div>
 
 
-    <!-- Buyer Procurement KPI Metrics (2x2 Grid) -->
-    <div class="grid grid-cols-2 gap-3 mb-4">
-      <div onclick="openBuyerLogisticsTab('deals')" class="card-clean p-4 border border-amber-200/80 bg-gradient-to-br from-white to-amber-50/30 cursor-pointer hover:border-amber-400 transition-all">
-        <div id="lbl-buyer-kpi-deals" class="text-xs font-bold text-slate-500">Active Deals</div>
-        <div id="val-buyer-kpi-deals" class="text-2xl font-black text-amber-900 mt-1">4 Deals</div>
-        <div class="text-[10px] text-amber-700 font-semibold mt-0.5">2 in transit &bull; 2 agreed</div>
-      </div>
-
-      <div onclick="openBuyerLogisticsTab('deals')" class="card-clean p-4 border border-slate-200 bg-gradient-to-br from-white to-slate-50 cursor-pointer hover:border-amber-400 transition-all">
-        <div id="lbl-buyer-kpi-procured" class="text-xs font-bold text-slate-500">Procured Volume</div>
-        <div class="text-2xl font-black text-slate-900 mt-1">14.5 Tons</div>
-        <div class="text-[10px] text-secondary font-semibold mt-0.5">362 Maunds this week</div>
-      </div>
-
-      <div onclick="navigateTo('screen-buyer-demand')" class="card-clean p-4 border border-slate-200 bg-gradient-to-br from-white to-slate-50 cursor-pointer hover:border-amber-400 transition-all">
-        <div id="lbl-buyer-kpi-demands" class="text-xs font-bold text-slate-500">Open Demands</div>
-        <div class="text-2xl font-black text-slate-900 mt-1">2 Active</div>
-        <div class="text-[10px] text-secondary font-semibold mt-0.5">Potato & Tomato requirements</div>
-      </div>
-
-      <div onclick="openBuyerLogisticsTab('matches')" class="card-clean p-4 border border-emerald-200/80 bg-gradient-to-br from-white to-emerald-50/30 cursor-pointer hover:border-emerald-400 transition-all">
-        <div id="lbl-buyer-kpi-matches" class="text-xs font-bold text-emerald-800">Match Radar</div>
-        <div class="text-2xl font-black text-emerald-800 mt-1">8 Lots</div>
-        <div class="text-[10px] text-emerald-700 font-semibold mt-0.5">&ge;80% Deterministic Match</div>
-      </div>
-    </div>
-
     <!-- Mandi Price Ticker Widget for Buyers -->
     <div class="card-clean p-4 mb-4 bg-gradient-to-r from-amber-50/50 to-emerald-50/40 border border-amber-200/60">
       <div class="flex items-center justify-between mb-2">
