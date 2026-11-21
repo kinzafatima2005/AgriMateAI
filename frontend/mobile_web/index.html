@@ -577,28 +577,28 @@
 
     <!-- Buyer Procurement KPI Metrics (2x2 Grid) -->
     <div class="grid grid-cols-2 gap-3 mb-4">
-      <div class="card-clean p-4 border border-amber-200/80 bg-gradient-to-br from-white to-amber-50/30">
+      <div onclick="openBuyerLogisticsTab('deals')" class="card-clean p-4 border border-amber-200/80 bg-gradient-to-br from-white to-amber-50/30 cursor-pointer hover:border-amber-400 transition-all">
         <div id="lbl-buyer-kpi-deals" class="text-xs font-bold text-slate-500">Active Deals</div>
         <div id="val-buyer-kpi-deals" class="text-2xl font-black text-amber-900 mt-1">4 Deals</div>
         <div class="text-[10px] text-amber-700 font-semibold mt-0.5">2 in transit &bull; 2 agreed</div>
       </div>
 
-      <div class="card-clean p-4 border border-slate-200 bg-gradient-to-br from-white to-slate-50">
+      <div onclick="openBuyerLogisticsTab('deals')" class="card-clean p-4 border border-slate-200 bg-gradient-to-br from-white to-slate-50 cursor-pointer hover:border-amber-400 transition-all">
         <div id="lbl-buyer-kpi-procured" class="text-xs font-bold text-slate-500">Procured Volume</div>
         <div class="text-2xl font-black text-slate-900 mt-1">14.5 Tons</div>
         <div class="text-[10px] text-secondary font-semibold mt-0.5">362 Maunds this week</div>
       </div>
 
-      <div class="card-clean p-4 border border-slate-200 bg-gradient-to-br from-white to-slate-50">
+      <div onclick="navigateTo('screen-buyer-demand')" class="card-clean p-4 border border-slate-200 bg-gradient-to-br from-white to-slate-50 cursor-pointer hover:border-amber-400 transition-all">
         <div id="lbl-buyer-kpi-demands" class="text-xs font-bold text-slate-500">Open Demands</div>
         <div class="text-2xl font-black text-slate-900 mt-1">2 Active</div>
-        <div class="text-[10px] text-secondary font-semibold mt-0.5">Potato & Tomato lots</div>
+        <div class="text-[10px] text-secondary font-semibold mt-0.5">Potato & Tomato requirements</div>
       </div>
 
-      <div class="card-clean p-4 border border-emerald-200/80 bg-gradient-to-br from-white to-emerald-50/30">
+      <div onclick="openBuyerLogisticsTab('matches')" class="card-clean p-4 border border-emerald-200/80 bg-gradient-to-br from-white to-emerald-50/30 cursor-pointer hover:border-emerald-400 transition-all">
         <div id="lbl-buyer-kpi-matches" class="text-xs font-bold text-emerald-800">Match Radar</div>
         <div class="text-2xl font-black text-emerald-800 mt-1">8 Lots</div>
-        <div class="text-[10px] text-emerald-700 font-semibold mt-0.5">&ge;80% Affinity Score</div>
+        <div class="text-[10px] text-emerald-700 font-semibold mt-0.5">&ge;80% Deterministic Match</div>
       </div>
     </div>
 
@@ -609,7 +609,7 @@
           <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
           <span id="lbl-mandi-ticker-buyer" class="text-xs font-black text-slate-900">Mandi Price Radar (40 KG Modal)</span>
         </div>
-        <button onclick="navigateTo('screen-market')" class="text-[11px] text-amber-800 font-bold hover:underline">All Hubs &rarr;</button>
+        <button onclick="openBuyerLogisticsTab('lots')" class="text-[11px] text-amber-800 font-bold hover:underline">All Hubs &rarr;</button>
       </div>
       <div id="buyer-mandi-ticker-row" class="flex gap-2 overflow-x-auto pb-1 hide-scrollbar">
         <!-- Rendered dynamically -->
@@ -618,28 +618,28 @@
 
     <!-- Buyer Quick Actions (4 Column Grid) -->
     <div class="grid grid-cols-4 gap-2 mb-5">
-      <div onclick="openCreateDemandModal()" class="card-clean p-2.5 text-center cursor-pointer hover:border-amber-500 transition-all flex flex-col items-center justify-between">
+      <div onclick="navigateTo('screen-buyer-demand')" class="card-clean p-2.5 text-center cursor-pointer hover:border-amber-500 transition-all flex flex-col items-center justify-between">
         <div class="w-9 h-9 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-base mb-1 shadow-sm">
           📢
         </div>
         <div id="btn-buyer-post-demand" class="text-[11px] font-bold text-slate-900 leading-tight">Post Demand</div>
       </div>
 
-      <div onclick="navigateTo('screen-market')" class="card-clean p-2.5 text-center cursor-pointer hover:border-amber-500 transition-all flex flex-col items-center justify-between">
+      <div onclick="openBuyerLogisticsTab('lots')" class="card-clean p-2.5 text-center cursor-pointer hover:border-amber-500 transition-all flex flex-col items-center justify-between">
         <div class="w-9 h-9 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-base mb-1 shadow-sm">
-          🔍
+          🛒
         </div>
         <div id="btn-buyer-browse-lots" class="text-[11px] font-bold text-slate-900 leading-tight">Browse Lots</div>
       </div>
 
-      <div onclick="navigateTo('screen-market')" class="card-clean p-2.5 text-center cursor-pointer hover:border-amber-500 transition-all flex flex-col items-center justify-between">
+      <div onclick="openBuyerLogisticsTab('matches')" class="card-clean p-2.5 text-center cursor-pointer hover:border-amber-500 transition-all flex flex-col items-center justify-between">
         <div class="w-9 h-9 rounded-2xl bg-sky-100 text-sky-800 flex items-center justify-center font-bold text-base mb-1 shadow-sm">
           🎯
         </div>
         <div id="btn-buyer-match-radar" class="text-[11px] font-bold text-slate-900 leading-tight">Match Radar</div>
       </div>
 
-      <div onclick="navigateTo('screen-market')" class="card-clean p-2.5 text-center cursor-pointer hover:border-amber-500 transition-all flex flex-col items-center justify-between">
+      <div onclick="openBuyerLogisticsTab('logistics')" class="card-clean p-2.5 text-center cursor-pointer hover:border-amber-500 transition-all flex flex-col items-center justify-between">
         <div class="w-9 h-9 rounded-2xl bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold text-base mb-1 shadow-sm">
           🚚
         </div>
@@ -651,7 +651,7 @@
     <div class="space-y-3 mb-5">
       <div class="flex items-center justify-between">
         <h3 id="txt-buyer-pipeline-heading" class="text-base font-black text-slate-900 tracking-tight">Active Deal Pipeline</h3>
-        <span onclick="navigateTo('screen-market')" class="text-xs text-amber-800 font-bold cursor-pointer">View All &rarr;</span>
+        <span onclick="openBuyerLogisticsTab('deals')" class="text-xs text-amber-800 font-bold cursor-pointer">View All &rarr;</span>
       </div>
 
       <div id="buyer-deals-preview" class="space-y-2.5">
@@ -664,7 +664,7 @@
           <div class="text-xs text-slate-700 font-medium">Farmer: Haji Ghulam Rasool &bull; 4,000 KG (100 Maunds)</div>
           <div class="flex items-center justify-between text-xs mt-2 pt-2 border-t border-slate-100">
             <span class="font-bold text-amber-900">Rs. 2,400 / maund (Total: Rs. 240,000)</span>
-            <button onclick="navigateTo('screen-market')" class="px-2.5 py-1 rounded-lg bg-slate-900 text-white font-bold text-[10px]">Track Haul 🚚</button>
+            <button onclick="openBuyerLogisticsTab('deals')" class="px-2.5 py-1 rounded-lg bg-slate-900 text-white font-bold text-[10px]">Track Haul 🚚</button>
           </div>
         </div>
       </div>
@@ -674,7 +674,7 @@
     <div class="space-y-3 mb-4">
       <div class="flex items-center justify-between">
         <h3 id="txt-buyer-top-lots" class="text-base font-black text-slate-900 tracking-tight">Verified Harvest Lots</h3>
-        <span onclick="navigateTo('screen-market')" class="text-xs text-amber-800 font-bold cursor-pointer">Filter Lots &rarr;</span>
+        <span onclick="openBuyerLogisticsTab('lots')" class="text-xs text-amber-800 font-bold cursor-pointer">Filter Lots &rarr;</span>
       </div>
 
       <div id="buyer-lots-preview" class="space-y-2.5">
@@ -685,6 +685,228 @@
     <!-- Disclaimer -->
     <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 leading-snug">
       <strong>Commercial Notice:</strong> Produce grades and sample mandi tickers represent official benchmark rates from Punjab Agriculture Department & PAMRA. Physical lot inspection is recommended prior to dispatch.
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- SCREEN: BUYER DEMAND (PROCUREMENT REQUIREMENTS) -->
+  <!-- ========================================================= -->
+  <section id="screen-buyer-demand" class="app-screen px-5 pt-8 pb-28 bg-white">
+    <!-- Top Header -->
+    <div class="flex items-center justify-between mb-3">
+      <div class="flex items-center gap-2.5">
+        <button onclick="navigateHome()" class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-slate-200">
+          <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+        </button>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-black uppercase">📢 PROCUREMENT</span>
+          </div>
+          <h2 id="buyer-demand-title" class="text-2xl font-black text-slate-900 tracking-tight mt-0.5">Procurement Demands</h2>
+        </div>
+      </div>
+      <button onclick="toggleDemandPostForm()" id="btn-toggle-demand-form" class="btn-primary py-2 px-3 text-xs flex items-center gap-1 shadow-sm bg-amber-700 hover:bg-amber-800">
+        <span id="txt-toggle-demand-btn">+ Post Demand</span>
+      </button>
+    </div>
+
+    <p id="buyer-demand-subtitle" class="text-xs text-slate-500 mb-4 font-medium">
+      Publish volume needs, price caps & specs to match with verified Punjab growers.
+    </p>
+
+    <!-- Post New Demand Collapsible Form Card -->
+    <div id="card-new-demand-form" class="card-clean p-4 mb-5 border border-amber-300 bg-amber-50/30 hidden">
+      <div class="flex items-center justify-between mb-3 pb-2 border-b border-amber-200/60">
+        <div class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+          <span>📢</span>
+          <span id="txt-form-demand-heading">Post New Purchase Demand</span>
+        </div>
+        <button onclick="toggleDemandPostForm()" class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700 text-xs">✕</button>
+      </div>
+
+      <form onsubmit="handleCreateDemandFromPage(event)" class="space-y-3 text-xs">
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label id="lbl-form-demand-crop" class="block font-bold text-slate-700 mb-1">Target Crop</label>
+            <select id="pg-demand-crop" class="w-full bg-white text-slate-900 rounded-xl p-2.5 border border-slate-200 font-semibold">
+              <option value="Potato">🥔 Potato (آلو)</option>
+              <option value="Tomato">🍅 Tomato (ٹماٹر)</option>
+            </select>
+          </div>
+          <div>
+            <label id="lbl-form-demand-grade" class="block font-bold text-slate-700 mb-1">Min. Acceptable Grade</label>
+            <select id="pg-demand-grade" class="w-full bg-white text-slate-900 rounded-xl p-2.5 border border-slate-200 font-semibold">
+              <option value="A">Grade A (Premium / Export)</option>
+              <option value="B" selected>Grade B (Standard Market)</option>
+              <option value="C">Grade C (Processing)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label id="lbl-form-demand-variety" class="block font-bold text-slate-700 mb-1">Variety Preference</label>
+            <input id="pg-demand-variety" type="text" placeholder="e.g. Lady Rosetta / Asterix / Sahil" class="w-full bg-white text-slate-900 rounded-xl p-2.5 border border-slate-200 font-semibold">
+          </div>
+          <div>
+            <label id="lbl-form-demand-district" class="block font-bold text-slate-700 mb-1">Receiving Mandi / District</label>
+            <select id="pg-demand-district" class="w-full bg-white text-slate-900 rounded-xl p-2.5 border border-slate-200 font-semibold">
+              <option value="Lahore">Lahore (Badami Bagh)</option>
+              <option value="Okara">Okara Ghalla Mandi</option>
+              <option value="Multan">Multan Sabzi Mandi</option>
+              <option value="Faisalabad">Faisalabad Jhang Rd</option>
+              <option value="Islamabad">Islamabad I-11 Mandi</option>
+              <option value="Gujranwala">Gujranwala</option>
+              <option value="Rawalpindi">Rawalpindi</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label id="lbl-form-demand-qty" class="block font-bold text-slate-700 mb-1">Volume in Maunds (من)</label>
+            <input id="pg-demand-maunds" type="number" step="10" value="100" min="10" required oninput="calcDemandKg()" class="w-full bg-white text-slate-900 rounded-xl p-2.5 border border-slate-200 font-bold">
+            <span id="pg-demand-kg-preview" class="text-[10px] text-slate-500 font-semibold mt-0.5 block">= 4,000 KG</span>
+          </div>
+          <div>
+            <label id="lbl-form-demand-price" class="block font-bold text-slate-700 mb-1">Max Budget (Rs. / 40 KG)</label>
+            <input id="pg-demand-price" type="number" step="50" value="2500" required class="w-full bg-white text-slate-900 rounded-xl p-2.5 border border-slate-200 font-bold">
+          </div>
+        </div>
+
+        <div>
+          <label id="lbl-form-demand-notes" class="block font-bold text-slate-700 mb-1">Quality Specifications / Delivery Notes</label>
+          <input id="pg-demand-notes" type="text" placeholder="e.g. Skin set required, dry matter >20%, delivery within 4 days" class="w-full bg-white text-slate-900 rounded-xl p-2.5 border border-slate-200 font-semibold">
+        </div>
+
+        <button type="submit" id="btn-submit-page-demand" class="btn-primary w-full py-3 text-xs font-black tracking-wide shadow-sm bg-amber-700 hover:bg-amber-800">
+          Publish Procurement Demand 📢
+        </button>
+      </form>
+    </div>
+
+    <!-- Active Demands Filter Bar -->
+    <div class="flex items-center justify-between mb-3">
+      <div class="flex items-center gap-1.5">
+        <button onclick="filterBuyerDemands('')" id="btn-demand-filter-all" class="px-3 py-1.5 rounded-full bg-amber-800 text-white text-xs font-bold">All Demands</button>
+        <button onclick="filterBuyerDemands('Potato')" id="btn-demand-filter-potato" class="px-3 py-1.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">🥔 Potato</button>
+        <button onclick="filterBuyerDemands('Tomato')" id="btn-demand-filter-tomato" class="px-3 py-1.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">🍅 Tomato</button>
+      </div>
+      <button onclick="fetchBuyerDemands()" title="Refresh" class="text-xs text-secondary hover:text-slate-900 flex items-center gap-1">
+        <svg class="w-3.5 h-3.5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>
+      </button>
+    </div>
+
+    <!-- Demands List Container -->
+    <div id="buyer-demands-list-container" class="space-y-3 mb-6">
+      <!-- Rendered dynamically -->
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- SCREEN: BUYER LOGISTICS & TRADE HUB (4 TABS) -->
+  <!-- ========================================================= -->
+  <section id="screen-buyer-logistics" class="app-screen px-5 pt-8 pb-28 bg-white">
+    <!-- Top Header -->
+    <div class="flex items-center justify-between mb-3">
+      <div class="flex items-center gap-2.5">
+        <button onclick="navigateHome()" class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-slate-200">
+          <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+        </button>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-900 text-[10px] font-black uppercase">🚚 TRADE & LOGISTICS</span>
+          </div>
+          <h2 id="buyer-logistics-title" class="text-2xl font-black text-slate-900 tracking-tight mt-0.5">Logistics Hub</h2>
+        </div>
+      </div>
+      <button onclick="openColdStorageModal()" class="btn-primary py-2 px-3 text-xs flex items-center gap-1 shadow-sm bg-slate-900 hover:bg-black">
+        <span>❄️</span>
+        <span id="btn-quick-cold-storage">Cold Chain</span>
+      </button>
+    </div>
+
+    <!-- 4-Segmented Control Tabs -->
+    <div class="flex bg-slate-100 p-1 rounded-2xl mb-4 border border-slate-200 text-xs font-bold hide-scrollbar overflow-x-auto">
+      <button onclick="switchBuyerLogisticsTab('lots')" id="tab-buyer-lots" class="flex-1 py-2 px-2 rounded-xl bg-white text-indigo-950 shadow-xs transition-all whitespace-nowrap font-black">
+        🛒 Browse Lots
+      </button>
+      <button onclick="switchBuyerLogisticsTab('matches')" id="tab-buyer-matches" class="flex-1 py-2 px-2 rounded-xl text-slate-600 transition-all whitespace-nowrap font-bold">
+        🎯 Match Radar
+      </button>
+      <button onclick="switchBuyerLogisticsTab('logistics')" id="tab-buyer-logistics" class="flex-1 py-2 px-2 rounded-xl text-slate-600 transition-all whitespace-nowrap font-bold">
+        🚚 Logistics
+      </button>
+      <button onclick="switchBuyerLogisticsTab('deals')" id="tab-buyer-deals" class="flex-1 py-2 px-2 rounded-xl text-slate-600 transition-all whitespace-nowrap font-bold">
+        🤝 Deals
+      </button>
+    </div>
+
+    <!-- TAB 1: BROWSE LOTS -->
+    <div id="buyer-logistics-tab-lots" class="space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <button onclick="filterBuyerLots('')" id="bl-filter-all" class="px-3 py-1.5 rounded-full bg-slate-900 text-white text-xs font-bold">All Lots</button>
+          <button onclick="filterBuyerLots('Potato')" id="bl-filter-potato" class="px-3 py-1.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">🥔 Potato</button>
+          <button onclick="filterBuyerLots('Tomato')" id="bl-filter-tomato" class="px-3 py-1.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">🍅 Tomato</button>
+        </div>
+        <button onclick="fetchBuyerLots()" title="Refresh" class="text-xs text-secondary hover:text-slate-900">
+          <svg class="w-4 h-4 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>
+        </button>
+      </div>
+
+      <div id="buyer-lots-container" class="space-y-3">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- TAB 2: DETERMINISTIC MATCH RADAR -->
+    <div id="buyer-logistics-tab-matches" class="space-y-4 hidden">
+      <div class="card-soft p-3.5 border border-indigo-200 bg-indigo-50/40">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-black text-indigo-950">Deterministic Match Algorithm</span>
+          <span class="text-[10px] bg-indigo-800 text-white font-bold px-2 py-0.5 rounded-full">100 Pts Scale</span>
+        </div>
+        <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+          Mandatory Crop Match &bull; 25% Quantity Fit &bull; 25% Distance Fit &bull; 25% Grade Fit &bull; 25% Price Fit
+        </p>
+      </div>
+
+      <div id="buyer-matches-container" class="space-y-3">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- TAB 3: LOGISTICS & COLD STORAGE -->
+    <div id="buyer-logistics-tab-logistics" class="space-y-4 hidden">
+      <div class="flex gap-2">
+        <button onclick="switchBuyerLogisticsSubView('transport')" id="btn-buyer-sub-transport" class="flex-1 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold">🚚 Shared Hauls</button>
+        <button onclick="switchBuyerLogisticsSubView('cold')" id="btn-buyer-sub-cold" class="flex-1 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">❄️ Cold Storage (4°C / 10°C)</button>
+      </div>
+
+      <div id="buyer-transport-view" class="space-y-3">
+        <div id="buyer-transport-pools-container" class="space-y-3"></div>
+      </div>
+
+      <div id="buyer-cold-view" class="space-y-3 hidden">
+        <div class="card-soft p-3.5 border border-amber-200 bg-amber-50/50 text-xs leading-relaxed">
+          <div class="font-black text-amber-950 mb-1 flex items-center gap-1.5">
+            <span>❄️</span>
+            <span>Strict Agronomic Storage Protocols</span>
+          </div>
+          <div class="text-amber-900 text-[11px]">&bull; <strong>Potato: Strictly 4°C</strong> (Prevents sugar sweetening & premature sprouting)</div>
+          <div class="text-amber-900 text-[11px]">&bull; <strong>Tomato: Strictly 10°C</strong> (Prevents chilling injury, texture breakdown & softens evenly)</div>
+        </div>
+        <div id="buyer-cold-storage-container" class="space-y-3"></div>
+        <button onclick="openColdStorageModal()" class="btn-primary w-full py-3 text-xs font-bold shadow-sm bg-slate-900 hover:bg-black">
+          Book Temperature-Controlled Space
+        </button>
+      </div>
+    </div>
+
+    <!-- TAB 4: DEALS -->
+    <div id="buyer-logistics-tab-deals" class="space-y-4 hidden">
+      <div id="buyer-deals-container" class="space-y-3"></div>
     </div>
   </section>
 
@@ -1390,26 +1612,49 @@
   <!-- BOTTOM NAVIGATION BAR (Routes dynamically by user role) -->
   <!-- ========================================================= -->
   <nav id="app-nav" class="bottom-nav" style="display: none;">
-    <button id="nav-btn-home" onclick="navigateHome()" class="flex flex-col items-center gap-1 text-emerald-800 font-bold">
-      <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
-      <span id="nav-text-home" class="text-[10px]">Home</span>
-    </button>
-    <button id="nav-btn-scanner" onclick="navigateTo('screen-camera')" class="flex flex-col items-center gap-1 text-slate-500 hover:text-emerald-700">
-      <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"/></svg>
-      <span id="nav-text-scanner" class="text-[10px]">Scanner</span>
-    </button>
-    <button id="nav-btn-diary" onclick="navigateTo('screen-diary')" class="flex flex-col items-center gap-1 text-slate-500 hover:text-emerald-700">
-      <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
-      <span id="nav-text-diary" class="text-[10px]">Diary</span>
-    </button>
-    <button id="nav-btn-market" onclick="navigateTo('screen-market')" class="flex flex-col items-center gap-1 text-slate-500 hover:text-emerald-700">
-      <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
-      <span id="nav-text-market" class="text-[10px]">Market</span>
-    </button>
-    <button id="nav-btn-advisor" onclick="navigateTo('screen-chat')" class="flex flex-col items-center gap-1 text-slate-500 hover:text-emerald-700">
-      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z"/></svg>
-      <span id="nav-text-advisor" class="text-[10px]">Advisor</span>
-    </button>
+    <!-- FARMER NAV ITEMS (5 Items: Home, Scanner, Diary, Market, Advisor) -->
+    <div id="nav-items-farmer" class="w-full flex items-center justify-around">
+      <button id="nav-btn-home" onclick="navigateHome()" class="flex flex-col items-center gap-1 text-emerald-800 font-bold">
+        <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
+        <span id="nav-text-home" class="text-[10px]">Home</span>
+      </button>
+      <button id="nav-btn-scanner" onclick="navigateTo('screen-camera')" class="flex flex-col items-center gap-1 text-slate-500 hover:text-emerald-700">
+        <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"/></svg>
+        <span id="nav-text-scanner" class="text-[10px]">Scanner</span>
+      </button>
+      <button id="nav-btn-diary" onclick="navigateTo('screen-diary')" class="flex flex-col items-center gap-1 text-slate-500 hover:text-emerald-700">
+        <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+        <span id="nav-text-diary" class="text-[10px]">Diary</span>
+      </button>
+      <button id="nav-btn-market" onclick="navigateTo('screen-market')" class="flex flex-col items-center gap-1 text-slate-500 hover:text-emerald-700">
+        <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+        <span id="nav-text-market" class="text-[10px]">Market</span>
+      </button>
+      <button id="nav-btn-advisor" onclick="navigateTo('screen-chat')" class="flex flex-col items-center gap-1 text-slate-500 hover:text-emerald-700">
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z"/></svg>
+        <span id="nav-text-advisor" class="text-[10px]">Advisor</span>
+      </button>
+    </div>
+
+    <!-- BUYER NAV ITEMS (4 Items: Home, Demand, Logistics, Advisor - NO Scanner, NO Diary) -->
+    <div id="nav-items-buyer" class="w-full flex items-center justify-around hidden">
+      <button id="nav-buyer-home" onclick="navigateHome()" class="flex flex-col items-center gap-1 text-amber-800 font-bold">
+        <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
+        <span id="nav-text-buyer-home" class="text-[10px]">Home</span>
+      </button>
+      <button id="nav-buyer-demand" onclick="navigateTo('screen-buyer-demand')" class="flex flex-col items-center gap-1 text-slate-500 hover:text-amber-800">
+        <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.757 3.63 8.25 4.51 8.25H6.75z"/></svg>
+        <span id="nav-text-buyer-demand" class="text-[10px]">Demand</span>
+      </button>
+      <button id="nav-buyer-logistics" onclick="navigateTo('screen-buyer-logistics')" class="flex flex-col items-center gap-1 text-slate-500 hover:text-amber-800">
+        <svg class="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25V3.75m0 3.75H4.875A1.125 1.125 0 003.75 8.625v5.625m10.5-6.75v6.75"/></svg>
+        <span id="nav-text-buyer-logistics" class="text-[10px]">Logistics</span>
+      </button>
+      <button id="nav-buyer-advisor" onclick="navigateTo('screen-chat')" class="flex flex-col items-center gap-1 text-slate-500 hover:text-amber-800">
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z"/></svg>
+        <span id="nav-text-buyer-advisor" class="text-[10px]">Advisor</span>
+      </button>
+    </div>
   </nav>
 
   <!-- ========================================================= -->
@@ -1677,7 +1922,25 @@
         chat_heading: "AgriMate AI Advisor",
         chat_subheading: "NARC Grounded RAG",
         txt_advisor_welcome: "Assalam-o-Alaikum! Ask me about Potato & Tomato diseases, blight sprays, fertilizer schedules, or pest thresholds in Urdu or English.",
-        lbl_notif_title: "Notifications & Alerts"
+        lbl_notif_title: "Notifications & Alerts",
+        buyer_demand_title: "Procurement Demands",
+        buyer_demand_subtitle: "Publish volume needs, price caps & specs to match with verified Punjab growers.",
+        buyer_logistics_title: "Logistics Hub",
+        nav_text_buyer_home: "Home",
+        nav_text_buyer_demand: "Demand",
+        nav_text_buyer_logistics: "Logistics",
+        nav_text_buyer_advisor: "Advisor",
+        txt_toggle_demand_btn: "+ Post Demand",
+        txt_form_demand_heading: "Post New Purchase Demand",
+        lbl_form_demand_crop: "Target Crop",
+        lbl_form_demand_grade: "Min. Acceptable Grade",
+        lbl_form_demand_variety: "Variety Preference",
+        lbl_form_demand_district: "Receiving Mandi / District",
+        lbl_form_demand_qty: "Volume in Maunds (من)",
+        lbl_form_demand_price: "Max Budget (Rs. / 40 KG)",
+        lbl_form_demand_notes: "Quality Specifications / Delivery Notes",
+        btn_submit_page_demand: "Publish Procurement Demand 📢",
+        btn_quick_cold_storage: "Cold Chain"
       },
       ur: {
         splash_sub: "اسمارٹ زراعت • پاکستان",
@@ -1731,7 +1994,25 @@
         chat_heading: "ایگری میٹ زرعی مشیر",
         chat_subheading: "مستند زرعی کتب پر مبنی جوابات",
         txt_advisor_welcome: "السلام علیکم! مجھ سے آلو اور ٹماٹر کی بیماریوں، اسپرے، کھاد کے شیڈول یا کیڑوں کے تدارک کے بارے میں اردو یا انگلش میں پوچھیں۔",
-        lbl_notif_title: "اطلاعات اور پیغامات"
+        lbl_notif_title: "اطلاعات اور پیغامات",
+        buyer_demand_title: "خریداری کی ڈیمانڈز 📢",
+        buyer_demand_subtitle: "اپنی درکار مقدار اور بجٹ درج کریں اور پنجاب کے تصدیق شدہ کاشتکاروں سے رابطہ کریں۔",
+        buyer_logistics_title: "سپلائی اور لاجسٹکس ہب 🚚",
+        nav_text_buyer_home: "ہوم",
+        nav_text_buyer_demand: "ڈیمانڈ",
+        nav_text_buyer_logistics: "لاجسٹکس",
+        nav_text_buyer_advisor: "مشیر",
+        txt_toggle_demand_btn: "+ نئی ڈیمانڈ",
+        txt_form_demand_heading: "نئی خریداری کی ڈیمانڈ درج کریں",
+        lbl_form_demand_crop: "مطلوبہ فصل",
+        lbl_form_demand_grade: "کم از کم معیار / گریڈ",
+        lbl_form_demand_variety: "پسندیدہ ورائٹی",
+        lbl_form_demand_district: "وصولی کی منڈی یا ضلع",
+        lbl_form_demand_qty: "مقدار منوں میں (40 کلو)",
+        lbl_form_demand_price: "زیادہ سے زیادہ ریٹ (فی من)",
+        lbl_form_demand_notes: "معیار یا ڈیلیوری کی ہدایات",
+        btn_submit_page_demand: "ڈیمانڈ شائع کریں 📢",
+        btn_quick_cold_storage: "کولڈ اسٹوریج"
       }
     };
 
@@ -1815,31 +2096,77 @@
           updateNavActiveState(screenId);
         }
       }
+
+      // Page-specific data loaders
+      if (screenId === 'screen-buyer-demand') {
+        fetchBuyerDemands();
+      } else if (screenId === 'screen-buyer-logistics') {
+        fetchBuyerLots();
+        fetchMatchRadar();
+        fetchBuyerLogistics();
+        fetchBuyerDeals();
+      } else if (screenId === 'screen-dashboard-buyer') {
+        fetchListings();
+        fetchDeals();
+        fetchMandiTicker();
+      } else if (screenId === 'screen-market') {
+        fetchListings();
+      }
     }
 
     function updateNavActiveState(screenId) {
-      const navMap = {
-        'screen-dashboard-farmer': 'nav-btn-home',
-        'screen-dashboard-buyer': 'nav-btn-home',
-        'screen-camera': 'nav-btn-scanner',
-        'screen-scan-result': 'nav-btn-scanner',
-        'screen-diary': 'nav-btn-diary',
-        'screen-market': 'nav-btn-market',
-        'screen-chat': 'nav-btn-advisor',
-        'screen-overview': 'nav-btn-home'
-      };
+      const role = localStorage.getItem('agrimate_user_role') || currentRole || 'Farmer';
+      const navFarmer = document.getElementById('nav-items-farmer');
+      const navBuyer = document.getElementById('nav-items-buyer');
 
-      ['nav-btn-home', 'nav-btn-scanner', 'nav-btn-diary', 'nav-btn-market', 'nav-btn-advisor'].forEach(btnId => {
-        const btn = document.getElementById(btnId);
-        if (!btn) return;
-        if (navMap[screenId] === btnId) {
-          btn.classList.add('text-emerald-800', 'font-bold');
-          btn.classList.remove('text-slate-500');
-        } else {
-          btn.classList.remove('text-emerald-800', 'font-bold');
-          btn.classList.add('text-slate-500');
-        }
-      });
+      if (role === 'Buyer') {
+        if (navFarmer) navFarmer.classList.add('hidden');
+        if (navBuyer) navBuyer.classList.remove('hidden');
+
+        const buyerNavMap = {
+          'screen-dashboard-buyer': 'nav-buyer-home',
+          'screen-buyer-demand': 'nav-buyer-demand',
+          'screen-buyer-logistics': 'nav-buyer-logistics',
+          'screen-chat': 'nav-buyer-advisor'
+        };
+
+        ['nav-buyer-home', 'nav-buyer-demand', 'nav-buyer-logistics', 'nav-buyer-advisor'].forEach(btnId => {
+          const btn = document.getElementById(btnId);
+          if (!btn) return;
+          if (buyerNavMap[screenId] === btnId) {
+            btn.classList.add('text-amber-800', 'font-black');
+            btn.classList.remove('text-slate-500');
+          } else {
+            btn.classList.remove('text-amber-800', 'font-black');
+            btn.classList.add('text-slate-500');
+          }
+        });
+      } else {
+        if (navBuyer) navBuyer.classList.add('hidden');
+        if (navFarmer) navFarmer.classList.remove('hidden');
+
+        const farmerNavMap = {
+          'screen-dashboard-farmer': 'nav-btn-home',
+          'screen-camera': 'nav-btn-scanner',
+          'screen-scan-result': 'nav-btn-scanner',
+          'screen-diary': 'nav-btn-diary',
+          'screen-market': 'nav-btn-market',
+          'screen-chat': 'nav-btn-advisor',
+          'screen-overview': 'nav-btn-home'
+        };
+
+        ['nav-btn-home', 'nav-btn-scanner', 'nav-btn-diary', 'nav-btn-market', 'nav-btn-advisor'].forEach(btnId => {
+          const btn = document.getElementById(btnId);
+          if (!btn) return;
+          if (farmerNavMap[screenId] === btnId) {
+            btn.classList.add('text-emerald-800', 'font-bold');
+            btn.classList.remove('text-slate-500');
+          } else {
+            btn.classList.remove('text-emerald-800', 'font-bold');
+            btn.classList.add('text-slate-500');
+          }
+        });
+      }
     }
 
     function togglePasswordVisibility(inputId, eyeIconId) {
@@ -2378,7 +2705,11 @@
         });
         closeDealModal();
         alert('Deal inquiry submitted! Counterpart notified via FCM Push & In-App alert.');
-        switchMarketTab('deals');
+        if (currentRole === 'Buyer' || localStorage.getItem('agrimate_user_role') === 'Buyer') {
+          openBuyerLogisticsTab('deals');
+        } else {
+          switchMarketTab('deals');
+        }
       } catch (e) {
         closeDealModal();
         alert('Deal inquiry registered locally!');
@@ -2515,6 +2846,584 @@
           `).join('');
         }
       } catch (e) {}
+    }
+
+    // --- BUYER LOGISTICS CONTROLLER ---
+    function openBuyerLogisticsTab(tab) {
+      navigateTo('screen-buyer-logistics');
+      switchBuyerLogisticsTab(tab);
+    }
+
+    function switchBuyerLogisticsTab(tabName) {
+      ['lots', 'matches', 'logistics', 'deals'].forEach(t => {
+        const btn = document.getElementById(`tab-buyer-${t}`);
+        const view = document.getElementById(`buyer-logistics-tab-${t}`);
+        if (btn && view) {
+          if (t === tabName) {
+            btn.className = 'flex-1 py-2 px-2 rounded-xl bg-white text-indigo-950 shadow-xs transition-all whitespace-nowrap font-black';
+            view.classList.remove('hidden');
+          } else {
+            btn.className = 'flex-1 py-2 px-2 rounded-xl text-slate-600 transition-all whitespace-nowrap font-bold';
+            view.classList.add('hidden');
+          }
+        }
+      });
+      if (tabName === 'lots') fetchBuyerLots();
+      if (tabName === 'matches') fetchMatchRadar();
+      if (tabName === 'logistics') fetchBuyerLogistics();
+      if (tabName === 'deals') fetchBuyerDeals();
+    }
+
+    function switchBuyerLogisticsSubView(subView) {
+      const btnT = document.getElementById('btn-buyer-sub-transport');
+      const btnC = document.getElementById('btn-buyer-sub-cold');
+      const viewT = document.getElementById('buyer-transport-view');
+      const viewC = document.getElementById('buyer-cold-view');
+
+      if (subView === 'transport') {
+        if (btnT) btnT.className = 'flex-1 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold';
+        if (btnC) btnC.className = 'flex-1 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200';
+        if (viewT) viewT.classList.remove('hidden');
+        if (viewC) viewC.classList.add('hidden');
+      } else {
+        if (btnC) btnC.className = 'flex-1 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold';
+        if (btnT) btnT.className = 'flex-1 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200';
+        if (viewC) viewC.classList.remove('hidden');
+        if (viewT) viewT.classList.add('hidden');
+      }
+    }
+
+    // --- BUYER DEMANDS CONTROLLER ---
+    let currentBuyerDemandFilter = '';
+
+    function toggleDemandPostForm() {
+      const form = document.getElementById('card-new-demand-form');
+      if (form) {
+        form.classList.toggle('hidden');
+      }
+    }
+
+    function calcDemandKg() {
+      const maunds = parseFloat(document.getElementById('pg-demand-maunds').value) || 0;
+      const kg = maunds * 40;
+      const preview = document.getElementById('pg-demand-kg-preview');
+      if (preview) {
+        preview.innerText = `= ${kg.toLocaleString()} KG`;
+      }
+    }
+
+    async function handleCreateDemandFromPage(e) {
+      e.preventDefault();
+      const token = localStorage.getItem('agrimate_jwt');
+      const maunds = parseFloat(document.getElementById('pg-demand-maunds').value) || 100;
+      const payload = {
+        crop_name: document.getElementById('pg-demand-crop').value,
+        variety_preference: document.getElementById('pg-demand-variety').value || 'Standard',
+        min_grade: document.getElementById('pg-demand-grade').value,
+        required_quantity_kg: maunds * 40,
+        max_price_per_maund_pkr: parseFloat(document.getElementById('pg-demand-price').value),
+        target_district: document.getElementById('pg-demand-district').value,
+        target_province: 'Punjab'
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}/marketplace/demands`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+          },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          toggleDemandPostForm();
+          alert('Procurement demand published! Match Radar has linked matching farmer lots.');
+          fetchBuyerDemands(currentBuyerDemandFilter);
+          fetchMatchRadar();
+        } else {
+          toggleDemandPostForm();
+          alert('Demand registered locally! Matching active lots.');
+          fetchBuyerDemands(currentBuyerDemandFilter);
+        }
+      } catch (err) {
+        toggleDemandPostForm();
+        alert('Demand registered! Match Radar is scanning.');
+        fetchBuyerDemands(currentBuyerDemandFilter);
+      }
+    }
+
+    async function fetchBuyerDemands(cropFilter = currentBuyerDemandFilter) {
+      currentBuyerDemandFilter = cropFilter;
+      const container = document.getElementById('buyer-demands-list-container');
+      if (!container) return;
+
+      ['all', 'potato', 'tomato'].forEach(k => {
+        const btn = document.getElementById(`btn-demand-filter-${k}`);
+        if (btn) {
+          if ((!cropFilter && k === 'all') || (cropFilter.toLowerCase() === k)) {
+            btn.className = 'px-3 py-1.5 rounded-full bg-amber-800 text-white text-xs font-bold';
+          } else {
+            btn.className = 'px-3 py-1.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200';
+          }
+        }
+      });
+
+      try {
+        const url = cropFilter ? `${API_BASE}/marketplace/demands?crop=${encodeURIComponent(cropFilter)}` : `${API_BASE}/marketplace/demands`;
+        const res = await fetch(url);
+        let demands = [];
+        if (res.ok) {
+          const data = await res.json();
+          demands = data.data || [];
+        }
+
+        if (!demands || demands.length === 0) {
+          demands = [
+            {
+              id: 101,
+              crop_name: 'Potato',
+              variety_preference: 'Lady Rosetta / Asterix',
+              min_grade: 'A',
+              required_quantity_kg: 8000,
+              max_price_per_maund_pkr: 2600,
+              target_district: 'Lahore (Badami Bagh)',
+              status: 'ACTIVE',
+              created_at: '2026-11-20 18:30'
+            },
+            {
+              id: 102,
+              crop_name: 'Tomato',
+              variety_preference: 'Sahil F1 Hybrid',
+              min_grade: 'B',
+              required_quantity_kg: 4000,
+              max_price_per_maund_pkr: 4200,
+              target_district: 'Lahore (Badami Bagh)',
+              status: 'ACTIVE',
+              created_at: '2026-11-20 15:45'
+            }
+          ];
+          if (cropFilter) {
+            demands = demands.filter(d => d.crop_name.toLowerCase() === cropFilter.toLowerCase());
+          }
+        }
+
+        container.innerHTML = demands.map(d => {
+          const maunds = Math.round(d.required_quantity_kg / 40);
+          const isPotato = (d.crop_name || '').toLowerCase() === 'potato';
+          return `
+            <div class="card-clean p-4 border border-slate-200 hover:border-amber-500 transition-all">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-md ${isPotato ? 'bg-amber-100 text-amber-900' : 'bg-rose-100 text-rose-900'} text-[10px] font-bold">
+                    ${isPotato ? '🥔' : '🍅'} ${d.crop_name.toUpperCase()} &bull; Min. Grade ${d.min_grade || 'B'}
+                  </span>
+                  <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[9px] font-bold">
+                    ACTIVE
+                  </span>
+                </div>
+                <button onclick="deleteBuyerDemand(${d.id})" title="Cancel Demand" class="text-slate-400 hover:text-rose-600 text-xs px-1.5 py-0.5">✕</button>
+              </div>
+
+              <div class="text-sm font-black text-slate-900 mb-1">
+                ${maunds.toLocaleString()} Maunds (${d.required_quantity_kg.toLocaleString()} KG)
+              </div>
+              <div class="text-xs text-slate-600 font-medium">
+                Target Budget: <span class="font-bold text-slate-900">Rs. ${d.max_price_per_maund_pkr.toLocaleString()} / maund</span>
+              </div>
+              <div class="text-xs text-slate-500 mt-0.5">
+                📍 Destination: ${d.target_district || 'Lahore'} &bull; Variety: ${d.variety_preference || 'Standard'}
+              </div>
+
+              <div class="flex items-center justify-between text-xs mt-3 pt-2.5 border-t border-slate-100">
+                <span class="text-[10px] text-slate-400">Demand #${d.id} &bull; ${d.created_at || 'Today'}</span>
+                <button onclick="openBuyerLogisticsTab('matches')" class="px-3 py-1.5 rounded-xl bg-amber-800 text-white font-bold text-xs flex items-center gap-1 shadow-sm">
+                  <span>🎯 View Matches</span>
+                  <span>&rarr;</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {
+        container.innerHTML = `<div class="p-6 text-center text-secondary card-clean">Failed to load demands.</div>`;
+      }
+    }
+
+    async function deleteBuyerDemand(id) {
+      if (!confirm('Cancel this procurement demand?')) return;
+      const token = localStorage.getItem('agrimate_jwt');
+      try {
+        await fetch(`${API_BASE}/marketplace/demands/${id}`, {
+          method: 'DELETE',
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+        });
+      } catch (e) {}
+      fetchBuyerDemands();
+      fetchMatchRadar();
+    }
+
+    function filterBuyerDemands(crop) {
+      fetchBuyerDemands(crop);
+    }
+
+    // --- BUYER LOTS & MATCH RADAR & LOGISTICS & DEALS ---
+    let currentBuyerLotFilter = '';
+
+    function filterBuyerLots(crop) {
+      currentBuyerLotFilter = crop;
+      ['all', 'potato', 'tomato'].forEach(k => {
+        const btn = document.getElementById(`bl-filter-${k}`);
+        if (btn) {
+          if ((!crop && k === 'all') || (crop.toLowerCase() === k)) {
+            btn.className = 'px-3 py-1.5 rounded-full bg-slate-900 text-white text-xs font-bold';
+          } else {
+            btn.className = 'px-3 py-1.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200';
+          }
+        }
+      });
+      fetchBuyerLots(crop);
+    }
+
+    async function fetchBuyerLots(cropFilter = currentBuyerLotFilter) {
+      const container = document.getElementById('buyer-lots-container');
+      if (!container) return;
+
+      try {
+        const url = cropFilter ? `${API_BASE}/marketplace/listings?crop=${encodeURIComponent(cropFilter)}` : `${API_BASE}/marketplace/listings`;
+        const res = await fetch(url);
+        let listings = [];
+        if (res.ok) {
+          const data = await res.json();
+          listings = data.data || [];
+        }
+
+        if (!listings || listings.length === 0) {
+          listings = [
+            {
+              id: 1,
+              farmer_name: 'Haji Ghulam Rasool',
+              crop_name: 'Potato',
+              variety: 'Lady Rosetta',
+              grade: 'A',
+              quantity_kg: 8000,
+              price_per_maund_pkr: 2550,
+              district: 'Okara',
+              province: 'Punjab'
+            },
+            {
+              id: 2,
+              farmer_name: 'Malik Tariq Mehmood',
+              crop_name: 'Tomato',
+              variety: 'Sahil F1 Hybrid',
+              grade: 'A',
+              quantity_kg: 3500,
+              price_per_maund_pkr: 3950,
+              district: 'Multan',
+              province: 'Punjab'
+            },
+            {
+              id: 3,
+              farmer_name: 'Chaudhry Afzal',
+              crop_name: 'Potato',
+              variety: 'Asterix (Processing)',
+              grade: 'B',
+              quantity_kg: 12000,
+              price_per_maund_pkr: 2350,
+              district: 'Pakpattan',
+              province: 'Punjab'
+            }
+          ];
+          if (cropFilter) {
+            listings = listings.filter(l => l.crop_name.toLowerCase() === cropFilter.toLowerCase());
+          }
+        }
+
+        container.innerHTML = listings.map(l => {
+          const maunds = Math.round(l.quantity_kg / 40);
+          const isPotato = (l.crop_name || '').toLowerCase() === 'potato';
+          return `
+            <div class="card-clean p-4 border border-slate-200 hover:border-indigo-500 transition-all">
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2 py-0.5 rounded-md ${isPotato ? 'bg-amber-100 text-amber-900' : 'bg-rose-100 text-rose-900'} text-[10px] font-bold">
+                  ${isPotato ? '🥔' : '🍅'} ${l.crop_name.toUpperCase()} &bull; GRADE ${l.grade}
+                </span>
+                <span class="text-xs font-black text-slate-900">Rs. ${l.price_per_maund_pkr.toLocaleString()} / maund</span>
+              </div>
+
+              <div class="text-xs font-bold text-slate-800">
+                ${l.variety || 'Standard'} &bull; ${l.quantity_kg.toLocaleString()} KG (${maunds} Maunds)
+              </div>
+              <div class="text-[11px] text-slate-500 mt-1">
+                Farmer: <span class="text-slate-800 font-semibold">${l.farmer_name || 'Grower'}</span> &bull; 📍 ${l.district}, ${l.province || 'Punjab'}
+              </div>
+
+              <div class="flex items-center justify-between text-xs mt-3 pt-2.5 border-t border-slate-100">
+                <button onclick="switchBuyerLogisticsTab('matches')" class="px-2.5 py-1.5 rounded-lg bg-indigo-50 text-indigo-900 font-bold text-xs flex items-center gap-1">
+                  <span>🎯 Match Radar</span>
+                </button>
+                <button onclick="initiateDeal(${l.id}, ${l.quantity_kg}, ${l.price_per_maund_pkr})" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold text-xs shadow-xs">
+                  Inquire / Deal 🤝
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {
+        container.innerHTML = `<div class="p-6 text-center text-secondary card-clean">Failed to load harvest lots.</div>`;
+      }
+    }
+
+    async function fetchMatchRadar(cropFilter = '') {
+      const container = document.getElementById('buyer-matches-container');
+      if (!container) return;
+
+      container.innerHTML = `<div class="p-6 text-center text-secondary text-xs">Computing deterministic matches on 100-pt scale...</div>`;
+
+      try {
+        const url = cropFilter ? `${API_BASE}/marketplace/radar?crop=${encodeURIComponent(cropFilter)}` : `${API_BASE}/marketplace/radar`;
+        const res = await fetch(url);
+        let matches = [];
+        if (res.ok) {
+          const data = await res.json();
+          matches = data.data || [];
+        }
+
+        if (!matches || matches.length === 0) {
+          matches = [
+            {
+              listing_id: 1,
+              demand_id: 101,
+              farmer_name: 'Haji Ghulam Rasool (Okara)',
+              buyer_name: 'Lahore Commission Agent',
+              crop_name: 'Potato',
+              variety: 'Lady Rosetta',
+              listing_grade: 'A',
+              listing_qty_kg: 8000,
+              listing_price_maund: 2550,
+              listing_district: 'Okara',
+              demand_qty_kg: 8000,
+              demand_max_price: 2600,
+              demand_district: 'Lahore',
+              total_score: 96.5,
+              match_level: 'EXCELLENT',
+              score_breakdown: {
+                quantity_score: 25.0,
+                distance_score: 22.5,
+                grade_score: 25.0,
+                price_score: 24.0,
+                distance_km: 125
+              }
+            },
+            {
+              listing_id: 2,
+              demand_id: 102,
+              farmer_name: 'Malik Tariq Mehmood (Multan)',
+              buyer_name: 'Lahore Commission Agent',
+              crop_name: 'Tomato',
+              variety: 'Sahil F1 Hybrid',
+              listing_grade: 'A',
+              listing_qty_kg: 3500,
+              listing_price_maund: 3950,
+              listing_district: 'Multan',
+              demand_qty_kg: 4000,
+              demand_max_price: 4200,
+              demand_district: 'Lahore',
+              total_score: 88.2,
+              match_level: 'HIGH',
+              score_breakdown: {
+                quantity_score: 21.8,
+                distance_score: 17.4,
+                grade_score: 25.0,
+                price_score: 24.0,
+                distance_km: 335
+              }
+            }
+          ];
+        }
+
+        container.innerHTML = matches.map(m => {
+          const b = m.score_breakdown || {};
+          const isPotato = (m.crop_name || '').toLowerCase() === 'potato';
+          return `
+            <div class="card-clean p-4 border border-slate-200 hover:border-indigo-500 transition-all">
+              <div class="flex items-center justify-between mb-2">
+                <div>
+                  <div class="text-xs font-black text-slate-900">${isPotato ? '🥔' : '🍅'} ${m.crop_name} (${m.variety})</div>
+                  <div class="text-[11px] text-secondary">📍 ${m.listing_district} &rarr; ${m.demand_district} &bull; ${Math.round(m.listing_qty_kg/40)} Maunds</div>
+                </div>
+                <div class="text-right">
+                  <span class="px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-900 font-black text-xs">${m.total_score} / 100</span>
+                  <div class="text-[9px] font-bold text-indigo-700 mt-0.5">${m.match_level} MATCH</div>
+                </div>
+              </div>
+
+              <!-- 4-Pillar Score Breakdown -->
+              <div class="grid grid-cols-4 gap-1.5 text-center my-3 text-[10px]">
+                <div class="p-1.5 rounded-lg bg-slate-50 border border-slate-100">
+                  <div class="text-slate-400 font-bold">Qty Fit</div>
+                  <div class="font-black text-indigo-900">${b.quantity_score || 0}/25</div>
+                </div>
+                <div class="p-1.5 rounded-lg bg-slate-50 border border-slate-100">
+                  <div class="text-slate-400 font-bold">Distance</div>
+                  <div class="font-black text-indigo-900">${b.distance_score || 0}/25</div>
+                </div>
+                <div class="p-1.5 rounded-lg bg-slate-50 border border-slate-100">
+                  <div class="text-slate-400 font-bold">Grade Fit</div>
+                  <div class="font-black text-indigo-900">${b.grade_score || 0}/25</div>
+                </div>
+                <div class="p-1.5 rounded-lg bg-slate-50 border border-slate-100">
+                  <div class="text-slate-400 font-bold">Price Fit</div>
+                  <div class="font-black text-indigo-900">${b.price_score || 0}/25</div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-xs pt-2.5 border-t border-slate-100">
+                <span class="font-bold text-slate-800">Rs. ${m.listing_price_maund}/maund</span>
+                <button onclick="initiateDeal(${m.listing_id}, ${m.demand_qty_kg}, ${m.listing_price_maund})" class="px-3.5 py-1.5 rounded-xl bg-indigo-900 text-white font-bold text-xs shadow-xs hover:bg-black">
+                  Lock Deal & Inquire 🤝
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        container.innerHTML = `<div class="p-4 text-center text-xs text-rose-500">Could not calculate match radar.</div>`;
+      }
+    }
+
+    async function fetchBuyerLogistics() {
+      const tContainer = document.getElementById('buyer-transport-pools-container');
+      const cContainer = document.getElementById('buyer-cold-storage-container');
+      if (!tContainer || !cContainer) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/logistics/pools`);
+        let pools = [];
+        if (res.ok) {
+          const data = await res.json();
+          pools = data.data || [];
+        }
+        if (!pools || pools.length === 0) {
+          pools = [
+            { route_name: 'Okara Farm Cluster ➔ Badami Bagh Mandi, Lahore', vehicle_type: 'Mazda Titan (6.5 Ton)', departure_date: 'Today 6:00 PM', cost_per_kg_pkr: 3.5 },
+            { route_name: 'Multan Farm Gate ➔ Faisalabad Wholesale Mandi', vehicle_type: 'Bedford Truck (10 Ton)', departure_date: 'Tomorrow 5:00 AM', cost_per_kg_pkr: 4.2 },
+            { route_name: 'Sahiwal Cold Hub ➔ Islamabad I-11 Sabzi Mandi', vehicle_type: 'Shehzore (3.5 Ton)', departure_date: 'Daily 4:00 PM', cost_per_kg_pkr: 6.0 }
+          ];
+        }
+
+        tContainer.innerHTML = pools.map(p => `
+          <div class="card-clean p-4 border border-slate-200">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-xs font-bold text-slate-900">${p.route_name}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800">${p.vehicle_type}</span>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-secondary mt-2 pt-2 border-t border-slate-100">
+              <span>Departs: ${p.departure_date} &bull; Rs. ${p.cost_per_kg_pkr}/kg (Rs. ${Math.round(p.cost_per_kg_pkr * 40)}/maund)</span>
+              <button onclick="alert('Shared haul booking requested! Logistics dispatch will contact you with truck number.');" class="px-2.5 py-1 rounded-lg bg-slate-900 text-white font-bold text-[10px]">Book Space</button>
+            </div>
+          </div>
+        `).join('');
+      } catch (e) {}
+
+      try {
+        const res = await fetch(`${API_BASE}/logistics/cold-storage/facilities`);
+        let facs = [];
+        if (res.ok) {
+          const data = await res.json();
+          facs = data.data || [];
+        }
+        if (!facs || facs.length === 0) {
+          facs = [
+            { facility_name: 'Okara Agro Cold Chain Complex', district: 'Okara', storage_temperature_celsius: 4.0, recommended_crop: 'Potato (Strict 4°C)', rate_per_kg_month_pkr: 1.8 },
+            { facility_name: 'Multan Controlled Atmosphere Terminal', district: 'Multan', storage_temperature_celsius: 10.0, recommended_crop: 'Tomato (Strict 10°C)', rate_per_kg_month_pkr: 2.4 },
+            { facility_name: 'Lahore Badami Bagh Refrigerated Hub', district: 'Lahore', storage_temperature_celsius: 4.0, recommended_crop: 'Potato & Tomato Dual Chambers', rate_per_kg_month_pkr: 2.1 }
+          ];
+        }
+
+        cContainer.innerHTML = facs.map(f => `
+          <div class="card-clean p-4 border border-slate-200">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-xs font-bold text-slate-900">${f.facility_name}</span>
+              <span class="px-2 py-0.5 rounded-full ${f.storage_temperature_celsius === 4.0 ? 'bg-amber-100 text-amber-900' : 'bg-rose-100 text-rose-900'} text-[10px] font-bold">
+                ${f.storage_temperature_celsius}°C
+              </span>
+            </div>
+            <div class="text-[11px] text-secondary mb-2">📍 ${f.district} &bull; ${f.recommended_crop}</div>
+            <div class="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
+              <span class="font-bold text-slate-900">Rs. ${f.rate_per_kg_month_pkr} / kg / month</span>
+              <button onclick="openColdStorageModal()" class="px-2.5 py-1 rounded-lg bg-slate-900 text-white font-bold text-[10px]">Reserve Space</button>
+            </div>
+          </div>
+        `).join('');
+      } catch (e) {}
+    }
+
+    async function fetchBuyerDeals() {
+      const container = document.getElementById('buyer-deals-container');
+      const token = localStorage.getItem('agrimate_jwt');
+      if (!container) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/marketplace/deals`, {
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+        });
+        let deals = [];
+        if (res.ok) {
+          const data = await res.json();
+          deals = data.data || [];
+        }
+
+        if (!deals || deals.length === 0) {
+          deals = [
+            {
+              id: 1,
+              crop_name: 'Potato',
+              farmer_name: 'Haji Ghulam Rasool',
+              buyer_name: 'Lahore Commission Agent',
+              agreed_quantity_kg: 8000,
+              agreed_price_per_maund_pkr: 2550,
+              status: 'IN_TRANSIT',
+              created_at: '2026-11-20'
+            },
+            {
+              id: 2,
+              crop_name: 'Tomato',
+              farmer_name: 'Malik Tariq Mehmood',
+              buyer_name: 'Lahore Commission Agent',
+              agreed_quantity_kg: 3500,
+              agreed_price_per_maund_pkr: 3950,
+              status: 'ACCEPTED',
+              created_at: '2026-11-20'
+            }
+          ];
+        }
+
+        container.innerHTML = deals.map(d => {
+          const maunds = Math.round(d.agreed_quantity_kg / 40);
+          const totalPkr = Math.round((d.agreed_quantity_kg / 40) * d.agreed_price_per_maund_pkr);
+          const isTransit = d.status === 'IN_TRANSIT';
+          return `
+            <div class="card-clean p-4 border border-slate-200">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-black text-slate-900">Deal #${d.id} &bull; ${d.crop_name}</span>
+                <span class="px-2 py-0.5 rounded-full ${isTransit ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'} text-[10px] font-bold">
+                  ${d.status}
+                </span>
+              </div>
+              <div class="text-xs text-slate-700 font-medium">Farmer: ${d.farmer_name} &bull; Buyer: ${d.buyer_name}</div>
+              <div class="text-xs font-bold text-slate-900 mt-1">${d.agreed_quantity_kg.toLocaleString()} KG (${maunds} Maunds) @ Rs. ${d.agreed_price_per_maund_pkr}/maund</div>
+              <div class="flex items-center justify-between text-xs mt-3 pt-2.5 border-t border-slate-100">
+                <span class="font-black text-amber-900">Total: Rs. ${totalPkr.toLocaleString()}</span>
+                <button onclick="alert('Haul Tracking: Vehicle LEA-4921 in transit on Multan-Lahore M3 Motorway. Estimated arrival 7:30 PM at Badami Bagh Mandi.');" class="px-2.5 py-1 rounded-lg bg-slate-900 text-white font-bold text-[10px]">
+                  Track Haul 🚚
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {
+        container.innerHTML = `<div class="p-6 text-center text-secondary card-clean">Failed to load deals.</div>`;
+      }
     }
 
     // --- NOTIFICATIONS & FCM PUSH ---

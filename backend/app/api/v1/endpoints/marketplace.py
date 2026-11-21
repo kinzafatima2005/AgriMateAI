@@ -482,6 +482,78 @@ def list_buyer_demands(
     return APIResponse(data=results, message="Buyer demands retrieved")
 
 
+@router.delete("/demands/{demand_id}", response_model=APIResponse[Dict[str, Any]])
+def delete_buyer_demand(
+    demand_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Cancel or remove an active buyer demand.
+    """
+    demand = db.query(BuyerDemand).filter(BuyerDemand.id == demand_id).first()
+    if not demand:
+        raise HTTPException(status_code=404, detail="Buyer demand not found")
+
+    db.delete(demand)
+    db.commit()
+    return APIResponse(data={"id": demand_id}, message="Buyer demand deleted successfully")
+
+
+@router.get("/radar", response_model=APIResponse[List[Dict[str, Any]]])
+def get_match_radar(
+    crop: Optional[str] = None,
+    db: Session = Depends(get_db)
+):
+    """
+    Unified Match Radar: Computes 100-pt deterministic matches between all available farmer lots and active buyer demands.
+    """
+    listings = db.query(CropListing).filter(CropListing.status == "AVAILABLE").all()
+    demands = db.query(BuyerDemand).filter(BuyerDemand.status == "ACTIVE").all()
+
+    radar_matches = []
+    for l in listings:
+        if crop and l.crop_name.lower() != crop.lower():
+            continue
+        for d in demands:
+            if l.crop_name.lower() != d.crop_name.lower():
+                continue
+            bd = calculate_match_breakdown(
+                listing_crop=l.crop_name,
+                listing_grade=l.grade,
+                listing_quantity_kg=l.quantity_kg,
+                listing_price_per_maund=l.price_per_maund_pkr,
+                listing_district=l.district,
+                demand_crop=d.crop_name,
+                demand_min_grade=d.min_grade,
+                demand_quantity_kg=d.required_quantity_kg,
+                demand_max_price_per_maund=d.max_price_per_maund_pkr,
+                demand_district=d.target_district
+            )
+            radar_matches.append({
+                "listing_id": l.id,
+                "demand_id": d.id,
+                "farmer_name": l.farmer.name if l.farmer else "Punjab Farmer",
+                "buyer_name": d.buyer.name if d.buyer else "Commercial Buyer",
+                "crop_name": l.crop_name,
+                "variety": l.variety or "Standard",
+                "listing_grade": l.grade,
+                "listing_qty_kg": l.quantity_kg,
+                "listing_price_maund": l.price_per_maund_pkr,
+                "listing_district": l.district,
+                "demand_qty_kg": d.required_quantity_kg,
+                "demand_max_price": d.max_price_per_maund_pkr,
+                "demand_district": d.target_district or "Lahore",
+                "score_breakdown": bd,
+                "total_score": bd["total_score"],
+                "match_level": bd["match_level"],
+                "explanation": bd.get("explanation", "")
+            })
+
+    radar_matches.sort(key=lambda x: x["total_score"], reverse=True)
+    return APIResponse(data=radar_matches, message="Radar matches calculated successfully")
+
+
 # -------------------------------------------------------------
 # 4. Deals & Deal Status Lifecycle Endpoints
 # -------------------------------------------------------------
