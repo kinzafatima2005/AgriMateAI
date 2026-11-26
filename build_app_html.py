@@ -156,7 +156,7 @@ def generate():
   <!-- ========================================================= -->
   <!-- SCREEN 1: SPLASH SCREEN (INSTAGRAM / FACEBOOK STYLE) -->
   <!-- ========================================================= -->
-  <section id="screen-splash" class="app-screen active justify-between items-center px-6 py-12 bg-white">
+  <section id="screen-splash" class="app-screen active justify-between items-center px-6 py-12 bg-white cursor-pointer" onclick="navigateTo('screen-login')">
     <div class="h-10"></div>
     <div class="flex flex-col items-center text-center">
       <div class="relative mb-5">
@@ -4025,7 +4025,7 @@ def generate():
       if (q.includes('late blight') || q.includes('blight') || q.includes('jhulsao') || q.includes('phytophthora') || q.includes('جھلسائو') || q.includes('پچھیتا') || q.includes('ridomil')) {
         if (isUr) {
           return {
-            answer: "**آلو کا پچھیتا جھلسائو (Late Blight - Phytophthora infestans)**\n\n• **علامات:** پتوں کے کناروں پر بے قاعدہ گہرے بھورے پانی بھرے دھبے بنتے ہیں جو مرطوب موسم میں تیزی سے پھیلتے ہیں۔ پتوں کی نچلی سطح پر سفید پھپھوندی نمودار ہوتی ہے۔\n• **کیمیائی تدارک (NARC منظور شدہ):**\n  - ریڈومل گولڈ (Mefenoxam + Mancozeb) بحساب 250 گرام فی 100 لیٹر پانی اسپرے کریں۔\n  - یا کرزیٹ (Cymoxanil + Mancozeb) بحساب 200 گرام فی ایکڑ اسپرے کریں۔\n• **زرعی تدابیر:** کھلیالیوں میں کھڑے پانی کو فوری ختم کریں اور شدید متاثرہ بوٹوں کو کھیت سے نکال کر دبا دیں۔",
+            answer: `**آلو کا پچھیتا جھلسائو (Late Blight - Phytophthora infestans)**\n\n• **علامات:** پتوں کے کناروں پر بے قاعدہ گہرے بھورے پانی بھرے دھبے بنتے ہیں جو مرطوب موسم میں تیزی سے پھیلتے ہیں۔ پتوں کی نچلی سطح پر سفید پھپھوندی نمودار ہوتی ہے۔\n• **کیمیائی تدارک (NARC منظور شدہ):**\n  - ریڈومل گولڈ (Mefenoxam + Mancozeb) بحساب 250 گرام فی 100 لیٹر پانی اسپرے کریں۔\n  - یا کرزیٹ (Cymoxanil + Mancozeb) بحساب 200 گرام فی ایکڑ اسپرے کریں۔\n• **زرعی تدابیر:** کھلیالیوں میں کھڑے پانی کو فوری ختم کریں اور شدید متاثرہ بوٹوں کو کھیت سے نکال کر دبا دیں۔`,
             citations: [
               { authority: 'NARC Potato Research Program', document_name: 'National Late Blight Management Directive', page_number: 24 },
               { authority: 'Punjab Agriculture Extension', document_name: 'Pest Warning & Quality Control Bulletin #402', page_number: 8 }
@@ -4033,7 +4033,7 @@ def generate():
           };
         } else {
           return {
-            answer: "**Potato Late Blight (*Phytophthora infestans*) - NARC Treatment Protocol**\n\n• **Diagnostic Symptoms:** Irregular water-soaked dark brown necrotic lesions starting at leaf margins. White fungal downy mildew forms on the underside under high relative humidity (>80%).\n• **Approved Chemical Control:**\n  - Apply **Ridomil Gold** (Mefenoxam + Mancozeb) @ 250g per 100 Liters of water upon initial symptom onset.\n  - Or apply **Cymoxanil + Mancozeb (Curzate)** @ 200g/acre for curative anti-sporulant action.\n• **Cultural Measures:** Cease excessive furrow irrigation; rogue out severely infected vines; avoid overhead irrigation before sunset.",
+            answer: `**Potato Late Blight (*Phytophthora infestans*) - NARC Treatment Protocol**\n\n• **Diagnostic Symptoms:** Irregular water-soaked dark brown necrotic lesions starting at leaf margins. White fungal downy mildew forms on the underside under high relative humidity (>80%).\n• **Approved Chemical Control:**\n  - Apply **Ridomil Gold** (Mefenoxam + Mancozeb) @ 250g per 100 Liters of water upon initial symptom onset.\n  - Or apply **Cymoxanil + Mancozeb (Curzate)** @ 200g/acre for curative anti-sporulant action.\n• **Cultural Measures:** Cease excessive furrow irrigation; rogue out severely infected vines; avoid overhead irrigation before sunset.`,
             citations: [
               { authority: 'NARC Plant Pathology Division', document_name: 'Potato Disease Management Manual', page_number: 26 },
               { authority: 'PARC Islamabad', document_name: 'Epidemiology of Solanaceous Crops in Punjab', page_number: 14 }
@@ -4046,14 +4046,14 @@ def generate():
       if (q.includes('early blight') || q.includes('alternaria') || q.includes('rings') || q.includes('اگیتا') || q.includes('دھبے') || q.includes('score') || q.includes('nativo')) {
         if (isUr) {
           return {
-            answer: "**اگیتا جھلسائو (Early Blight - Alternaria solani)**\n\n• **علامات:** نچلے اور پرانے پتوں پر گول گہرے بھورے دائرے نما دھبے (Target Board Rings) بنتے ہیں جن کے گرد زرد ہالہ ہوتا ہے۔\n• **کیمیائی تدارک:**\n  - اسکور (Difenoconazole 250 EC) بحساب 100 ملی لیٹر فی 100 لیٹر پانی اسپرے کریں۔\n  - یا نیٹیوو (Nativo - Tebuconazole + Trifloxystrobin) بحساب 65 گرام فی ایکڑ اسپرے کریں۔\n• **زرعی تدابیر:** زمین سے چھونے والے سوکھے پتوں کی کانٹ چھانٹ کریں۔",
+            answer: `**اگیتا جھلسائو (Early Blight - Alternaria solani)**\n\n• **علامات:** نچلے اور پرانے پتوں پر گول گہرے بھورے دائرے نما دھبے (Target Board Rings) بنتے ہیں جن کے گرد زرد ہالہ ہوتا ہے۔\n• **کیمیائی تدارک:**\n  - اسکور (Difenoconazole 250 EC) بحساب 100 ملی لیٹر فی 100 لیٹر پانی اسپرے کریں۔\n  - یا نیٹیوو (Nativo - Tebuconazole + Trifloxystrobin) بحساب 65 گرام فی ایکڑ اسپرے کریں۔\n• **زرعی تدابیر:** زمین سے چھونے والے سوکھے پتوں کی کانٹ چھانٹ کریں۔`,
             citations: [
               { authority: 'PARC Plant Sciences Division', document_name: 'Horticultural Crop Protection Guide', page_number: 112 }
             ]
           };
         } else {
           return {
-            answer: "**Early Blight (*Alternaria solani*) - NARC Diagnostic Protocol**\n\n• **Symptoms:** Concentric dark brown 'target-board' rings on mature lower leaves surrounded by a chlorotic yellow halo.\n• **Chemical Treatment:**\n  - Spray **Score 250 EC** (Difenoconazole) @ 100ml / 100L water.\n  - Or **Nativo 75 WG** (Tebuconazole + Trifloxystrobin) @ 65g/acre.\n• **Cultural Management:** Mulch soil to prevent rain/irrigation splash spore dispersal.",
+            answer: `**Early Blight (*Alternaria solani*) - NARC Diagnostic Protocol**\n\n• **Symptoms:** Concentric dark brown 'target-board' rings on mature lower leaves surrounded by a chlorotic yellow halo.\n• **Chemical Treatment:**\n  - Spray **Score 250 EC** (Difenoconazole) @ 100ml / 100L water.\n  - Or **Nativo 75 WG** (Tebuconazole + Trifloxystrobin) @ 65g/acre.\n• **Cultural Management:** Mulch soil to prevent rain/irrigation splash spore dispersal.`,
             citations: [
               { authority: 'NARC Crop Diseases Section', document_name: 'Solanaceae Protection Guide', page_number: 55 }
             ]
@@ -4065,14 +4065,14 @@ def generate():
       if (q.includes('fertilizer') || q.includes('khaaad') || q.includes('khad') || q.includes('urea') || q.includes('dap') || q.includes('potash') || q.includes('sop') || q.includes('کھاد') || q.includes('یوریا') || q.includes('پوٹاش')) {
         if (isUr) {
           return {
-            answer: "**آلو اور ٹماٹر کے لیے NARC کھاد کا شیڈول (فی ایکڑ)**\n\n• **بوائی کے وقت (Basal Dose):**\n  - 2 بوری ڈی اے پی (DAP) + 1 بوری پوٹاش (SOP / Sulphate of Potash) بجائی کے وقت کھیت کی تیاری میں ڈالیں۔\n• **پہلی مٹی چڑھاتے وقت (30 تا 35 دن):**\n  - 1 بوری یوریا + زنک سلفیٹ۔\n• **دوسری مٹی چڑھاتے وقت (50 تا 55 دن):**\n  - آدھی بوری یوریا + آدھی بوری پوٹاش۔\n• **اہم نوٹ:** کٹائی سے 30 دن قبل نائٹروجن (یوریا) بند کر دیں تاکہ آلو کا چھلکا مضبوط ہو سکے۔",
+            answer: `**آلو اور ٹماٹر کے لیے NARC کھاد کا شیڈول (فی ایکڑ)**\n\n• **بوائی کے وقت (Basal Dose):**\n  - 2 بوری ڈی اے پی (DAP) + 1 بوری پوٹاش (SOP / Sulphate of Potash) بجائی کے وقت کھیت کی تیاری میں ڈالیں۔\n• **پہلی مٹی چڑھاتے وقت (30 تا 35 دن):**\n  - 1 بوری یوریا + زنک سلفیٹ۔\n• **دوسری مٹی چڑھاتے وقت (50 تا 55 دن):**\n  - آدھی بوری یوریا + آدھی بوری پوٹاش۔\n• **اہم نوٹ:** کٹائی سے 30 دن قبل نائٹروجن (یوریا) بند کر دیں تاکہ آلو کا چھلکا مضبوط ہو سکے۔`,
             citations: [
               { authority: 'Punjab Agriculture Extension', document_name: 'Potato Agronomy & Nutrient Guidelines', page_number: 18 }
             ]
           };
         } else {
           return {
-            answer: "**Recommended Fertilizer Regimen for Potato & Tomato (Per Acre)**\n\n• **Basal Application (At Planting):**\n  - 2 bags DAP (Diammonium Phosphate) + 1 bag SOP (Sulphate of Potash 50% K2O) incorporated during final bed preparation.\n• **First Earthing Up (30-35 Days):**\n  - 1 bag Urea with irrigation.\n• **Second Earthing Up (50-55 Days):**\n  - 0.5 bag Urea + 0.5 bag SOP for tuber enlargement.\n• **Critical Rule:** Cease nitrogenous fertilizers 30-35 days prior to haulm cutting to allow skin set and avoid hollow heart.",
+            answer: `**Recommended Fertilizer Regimen for Potato & Tomato (Per Acre)**\n\n• **Basal Application (At Planting):**\n  - 2 bags DAP (Diammonium Phosphate) + 1 bag SOP (Sulphate of Potash 50% K2O) incorporated during final bed preparation.\n• **First Earthing Up (30-35 Days):**\n  - 1 bag Urea with irrigation.\n• **Second Earthing Up (50-55 Days):**\n  - 0.5 bag Urea + 0.5 bag SOP for tuber enlargement.\n• **Critical Rule:** Cease nitrogenous fertilizers 30-35 days prior to haulm cutting to allow skin set and avoid hollow heart.`,
             citations: [
               { authority: 'NARC Soil Science & Plant Nutrition', document_name: 'Balanced Fertilization Guide for Punjab', page_number: 42 }
             ]
@@ -4084,14 +4084,14 @@ def generate():
       if (q.includes('aphid') || q.includes('whitefly') || q.includes('jassid') || q.includes('teela') || q.includes('pest') || q.includes('safaid makhi') || q.includes('تیلہ') || q.includes('مکھی') || q.includes('کیڑے')) {
         if (isUr) {
           return {
-            answer: "**تیلہ اور سفید مکھی کا تدارک (NARC گائیڈ لائن)**\n\n• **نقصان:** سست تیلہ (Aphid) آلو میں وائرس (PLRV) پھیلاتا ہے۔\n• **معاشی حد (ETL):** 5 تیلے فی 100 پتے۔\n• **اسپرے تجویز:**\n  - کونفیڈور (Imidacloprid 200 SL) بحساب 250 ملی لیٹر فی ایکڑ اسپرے کریں۔\n  - یا مووینٹو (Movento - Spirotetramat) بحساب 125 ملی لیٹر فی ایکڑ اسپرے کریں۔\n• **سفید مکھی کے لیے:** پائری پروکسیفن (Pyriproxyfen) 400 ملی لیٹر فی ایکڑ۔",
+            answer: `**تیلہ اور سفید مکھی کا تدارک (NARC گائیڈ لائن)**\n\n• **نقصان:** سست تیلہ (Aphid) آلو میں وائرس (PLRV) پھیلاتا ہے۔\n• **معاشی حد (ETL):** 5 تیلے فی 100 پتے۔\n• **اسپرے تجویز:**\n  - کونفیڈور (Imidacloprid 200 SL) بحساب 250 ملی لیٹر فی ایکڑ اسپرے کریں۔\n  - یا مووینٹو (Movento - Spirotetramat) بحساب 125 ملی لیٹر فی ایکڑ اسپرے کریں۔\n• **سفید مکھی کے لیے:** پائری پروکسیفن (Pyriproxyfen) 400 ملی لیٹر فی ایکڑ۔`,
             citations: [
               { authority: 'Punjab Pest Warning Quality Control', document_name: 'Threshold Monitoring Handbook', page_number: 15 }
             ]
           };
         } else {
           return {
-            answer: "**Sucking Pest Management (Aphids & Whiteflies)**\n\n• **Vector Risk:** Peach Aphids are primary vectors of Potato Leafroll Virus (PLRV). Economic Threshold: 5 aphids / 100 leaves.\n• **Control Measures:**\n  - Spray **Confidor 200 SL** (Imidacloprid) @ 250ml/acre.\n  - Or **Movento** (Spirotetramat) @ 125ml/acre for systemic translaminar control of nymphs.\n  - For Whitefly in Tomato: Apply **Pyriproxyfen 10.8 EC** @ 400ml/acre.",
+            answer: `**Sucking Pest Management (Aphids & Whiteflies)**\n\n• **Vector Risk:** Peach Aphids are primary vectors of Potato Leafroll Virus (PLRV). Economic Threshold: 5 aphids / 100 leaves.\n• **Control Measures:**\n  - Spray **Confidor 200 SL** (Imidacloprid) @ 250ml/acre.\n  - Or **Movento** (Spirotetramat) @ 125ml/acre for systemic translaminar control of nymphs.\n  - For Whitefly in Tomato: Apply **Pyriproxyfen 10.8 EC** @ 400ml/acre.`,
             citations: [
               { authority: 'NARC Entomology Research Center', document_name: 'Solanaceous Insect Pest Management', page_number: 31 }
             ]
@@ -4103,14 +4103,14 @@ def generate():
       if (q.includes('cold storage') || q.includes('storage') || q.includes('temperature') || q.includes('store') || q.includes('کولڈ') || q.includes('درجہ حرارت')) {
         if (isUr) {
           return {
-            answer: "**کولڈ اسٹوریج اور درجہ حرارت کے مستند اصول**\n\n• **کھانے کے آلو (Table Potato):** درجہ حرارت **8°C تا 10°C** اور نمی 90-95% ہونی چاہیے تاکہ شوگر نہ بڑھے اور مٹھاس پیدا نہ ہو۔\n• **بیج کا آلو (Seed Potato):** درجہ حرارت **3°C تا 4°C** پر رکھا جائے۔\n• **ٹماٹر (Fresh Tomato):** درجہ حرارت **10°C تا 12°C** برقرار رکھیں۔ ٹماٹر کو کبھی 8°C سے نیچے نہ رکھیں ورنہ سردی کا نقصان (Chilling Injury) ہو جاتا ہے۔",
+            answer: `**کولڈ اسٹوریج اور درجہ حرارت کے مستند اصول**\n\n• **کھانے کے آلو (Table Potato):** درجہ حرارت **8°C تا 10°C** اور نمی 90-95% ہونی چاہیے تاکہ شوگر نہ بڑھے اور مٹھاس پیدا نہ ہو۔\n• **بیج کا آلو (Seed Potato):** درجہ حرارت **3°C تا 4°C** پر رکھا جائے۔\n• **ٹماٹر (Fresh Tomato):** درجہ حرارت **10°C تا 12°C** برقرار رکھیں۔ ٹماٹر کو کبھی 8°C سے نیچے نہ رکھیں ورنہ سردی کا نقصان (Chilling Injury) ہو جاتا ہے۔`,
             citations: [
               { authority: 'PARC Post-Harvest Engineering', document_name: 'Cold Chain & Warehouse Standards for Pakistan', page_number: 45 }
             ]
           };
         } else {
           return {
-            answer: "**NARC Cold Storage & Temperature Specifications**\n\n• **Table / Processing Potato:** Maintain at **8°C to 10°C** with 90-95% RH. Lower temperatures trigger cold-induced sweetening (reducing sugars turn chips brown).\n• **Seed Potato:** Strictly stored at **3°C to 4°C** to suppress premature sprouting.\n• **Fresh Market Tomato:** Store at **10°C to 12°C**. Never store below 8°C to prevent chilling injury, internal breakdown, and failure to ripen.",
+            answer: `**NARC Cold Storage & Temperature Specifications**\n\n• **Table / Processing Potato:** Maintain at **8°C to 10°C** with 90-95% RH. Lower temperatures trigger cold-induced sweetening (reducing sugars turn chips brown).\n• **Seed Potato:** Strictly stored at **3°C to 4°C** to suppress premature sprouting.\n• **Fresh Market Tomato:** Store at **10°C to 12°C**. Never store below 8°C to prevent chilling injury, internal breakdown, and failure to ripen.`,
             citations: [
               { authority: 'PARC Post-Harvest Engineering Institute', document_name: 'Cold Chain Guidelines', page_number: 48 }
             ]
@@ -4122,14 +4122,14 @@ def generate():
       if (q.includes('hi') || q.includes('hello') || q.includes('hy') || q.includes('salam') || q.includes('assalam') || q.includes('hey') || q === 'hi' || q === 'hy') {
         if (isUr) {
           return {
-            answer: "وعلیکم السلام! میں ایگری میٹ زرعی مشیر ہوں۔ میں آپ کے موبائل فون پر براہ راست کام کرتا ہوں۔\n\nآپ مجھ سے آلو اور ٹماٹر کی بیماریوں (جھلسائو)، کھاد کے شیڈول، اسپرے کے اوقات، کیڑوں کے تدارک یا منڈی اور کولڈ اسٹوریج کے بارے میں اردو یا انگلش میں پوچھ سکتے ہیں۔ بتائیں میں آپ کی کیا مدد کروں؟",
+            answer: `وعلیکم السلام! میں ایگری میٹ زرعی مشیر ہوں۔ میں آپ کے موبائل فون پر براہ راست کام کرتا ہوں۔\n\nآپ مجھ سے آلو اور ٹماٹر کی بیماریوں (جھلسائو)، کھاد کے شیڈول، اسپرے کے اوقات، کیڑوں کے تدارک یا منڈی اور کولڈ اسٹوریج کے بارے میں اردو یا انگلش میں پوچھ سکتے ہیں۔ بتائیں میں آپ کی کیا مدد کروں؟`,
             citations: [
               { authority: 'AgriMate NARC Verified Agronomic Engine', document_name: 'Standalone On-Device Intelligence', page_number: 1 }
             ]
           };
         } else {
           return {
-            answer: "Assalam-o-Alaikum! I am AgriMate AI, your dedicated agronomic advisory engine running directly on your phone.\n\nYou can ask me about:\n• Potato & Tomato Late / Early Blight symptoms and sprays\n• Fertilizer schedules (DAP, Urea, SOP)\n• Aphid and Whitefly pest thresholds\n• Cold storage temperatures (4°C vs 10°C)\n• Live Mandi price benchmarks across Punjab hubs\n\nHow may I assist your farm or agribusiness today?",
+            answer: `Assalam-o-Alaikum! I am AgriMate AI, your dedicated agronomic advisory engine running directly on your phone.\n\nYou can ask me about:\n• Potato & Tomato Late / Early Blight symptoms and sprays\n• Fertilizer schedules (DAP, Urea, SOP)\n• Aphid and Whitefly pest thresholds\n• Cold storage temperatures (4°C vs 10°C)\n• Live Mandi price benchmarks across Punjab hubs\n\nHow may I assist your farm or agribusiness today?`,
             citations: [
               { authority: 'AgriMate NARC Knowledge Base', document_name: 'On-Device Agronomic Assistant', page_number: 1 }
             ]
@@ -4277,27 +4277,34 @@ def generate():
     }
 
     // App Initialization
-    window.addEventListener('DOMContentLoaded', () => {
-      setLanguage(currentLang);
-      updateHeaderUserDisplay();
-      renderDiaryEntries();
-      fetchMandiTicker();
-      fetchListings();
-      fetchNotifications();
+    function initApp() {
+      try { setLanguage(currentLang); } catch (e) { console.warn(e); }
+      try { updateHeaderUserDisplay(); } catch (e) { console.warn(e); }
+      try { renderDiaryEntries(); } catch (e) { console.warn(e); }
+      try { fetchMandiTicker(); } catch (e) { console.warn(e); }
+      try { fetchListings(); } catch (e) { console.warn(e); }
+      try { fetchNotifications(); } catch (e) { console.warn(e); }
 
-      // Splash screen: check for active authenticated session
+      // Splash screen: check for active authenticated session & transition
       setTimeout(() => {
-        const token = localStorage.getItem('agrimate_jwt');
-        // If token exists and is a genuine signed session, proceed to dashboard
-        if (token && !token.startsWith('jwt-token-')) {
-          navigateHome();
-        } else {
-          localStorage.removeItem('agrimate_jwt');
-          localStorage.removeItem('agrimate_user_role');
+        try {
+          const token = localStorage.getItem('agrimate_jwt');
+          if (token && !token.startsWith('jwt-token-')) {
+            navigateHome();
+          } else {
+            navigateTo('screen-login');
+          }
+        } catch (e) {
           navigateTo('screen-login');
         }
-      }, 2000);
-    });
+      }, 1200);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
   </script>
 </body>
 </html>
